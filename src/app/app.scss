@@ -14,3 +14,64 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.flex-row {
+  display: flex;
+}
+.flex-c-row {
+  display: flex;
+  align-items: center;
+}
+.flex-c-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+.flex-1 {
+  flex: 1;
+}
+
+.hj-center {
+  align-self: center;
+  justify-content: center !important;
+  text-align: center;
+}
+
+//
+// width
+//
+.width-70 {
+  width: 70%;
+}
+.width-80 {
+  width: 70%;
+}
+.width-100 {
+  width: 100%;
+}
+
+//
+// corner
+//
+.round-corner {
+  border-radius: 10px;
+}
+
+//
+// border
+//
+.bottom-border {
+  border-bottom: 1px solid #00000040;
+}

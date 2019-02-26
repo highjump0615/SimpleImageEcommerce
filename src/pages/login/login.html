@@ -1,0 +1,88 @@
+<!--
+  Generated template for the LoginPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+</ion-header>
+
+<ion-content>
+  <div class="container">
+
+    <!-- logo -->
+    <div class="dv-logo flex-c-row hj-center width-70">
+      <img src="../../assets/imgs/logo.png" />
+    </div>
+
+    <!-- login form -->
+    <div class="dv-form round-corner">
+      <form (ngSubmit)="signinForm()">
+        <div class="container">
+          <!-- username -->
+          <div class="bottom-border width-100">
+            <ion-input
+              name="username"
+              placeholder="Username"
+              [(ngModel)]="username">
+            </ion-input>
+          </div>
+
+          <!-- password -->
+          <div
+            class="bottom-border width-100"
+            style="margin-top: 12px;">
+            <ion-input
+              name="password"
+              type="password"
+              placeholder="Password"
+              [(ngModel)]="password">
+            </ion-input>
+          </div>
+
+          <!-- login -->
+          <button
+            ion-button
+            class="but-primary width-70 round-corner"
+            (click)="onButLogin($event)"
+            style="margin-top: 34px;"
+          >LOGIN</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- social buttons -->
+    <div class="dv-social flex-c-col">
+      <!-- google -->
+      <button
+        ion-button full icon-start
+        color="danger"
+        class="round-corner"
+        (click)="onButGoogle($event)">
+        <ion-icon name="logo-google"></ion-icon>
+        CONNECT WITH GOOGLE
+      </button>
+
+      <!-- facebook -->
+      <button
+        ion-button full icon-start
+        color="secondary"
+        class="round-corner"
+        (click)="onButFb($event)"
+        style="margin-top: 10px;">
+        <ion-icon name="logo-facebook"></ion-icon>
+        CONNECT WITH FACEBOOK
+      </button>
+
+      <!-- signup -->
+      <button
+        ion-button clear
+        color="light"
+        (click)="onButSignup($event)">
+        Don't have an account?&nbsp;<b>Signup</b>
+      </button>
+    </div>
+
+  </div>
+
+</ion-content>
