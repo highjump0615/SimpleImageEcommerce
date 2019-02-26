@@ -1,0 +1,71 @@
+<!--
+  Generated template for the SignupPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar class="bg-grad">
+    <ion-title>New Account</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <!-- header -->
+  <div class="dv-header bg-grad">
+    Please fill in your information to<br />complete your account registration
+  </div>
+
+  <!-- form -->
+  <form
+    class="flex-c-col"
+    (ngSubmit)="signupForm()">
+    <!-- username -->
+    <div class="bottom-border width-100">
+      <ion-input
+        name="username"
+        placeholder="Username"
+        [(ngModel)]="username">
+      </ion-input>
+    </div>
+
+    <!-- email -->
+    <div class="bottom-border width-100">
+      <ion-input
+        name="email"
+        type="email"
+        placeholder="Email"
+        [(ngModel)]="username">
+      </ion-input>
+    </div>
+
+    <!-- password -->
+    <div class="bottom-border width-100">
+      <ion-input
+        name="password"
+        type="password"
+        placeholder="Password"
+        [(ngModel)]="password">
+      </ion-input>
+    </div>
+
+    <!-- password -->
+    <div class="bottom-border width-100">
+      <ion-input
+        name="repassword"
+        type="password"
+        placeholder="Re-enter Password"
+        [(ngModel)]="repassword">
+      </ion-input>
+    </div>
+
+    <!-- button -->
+    <button
+      ion-button
+      type="submit"
+      class="but-primary width-70 round-corner"
+      style="margin-top: 34px;"
+    >Save</button>
+  </form>
+
+</ion-content>

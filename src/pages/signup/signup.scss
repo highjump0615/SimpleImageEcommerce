@@ -1,0 +1,20 @@
+page-signup {
+
+  .dv-header {
+    padding: 38px 0;
+    text-align: center;
+    font-size: 13pt;
+    font-weight: 500;
+    line-height: 1.4;
+    color: map_get($colors, light);
+  }
+
+  form {
+    padding: 24px;
+
+    .bottom-border:not(:first-child) {
+      margin-top: 12px;
+    }
+  }
+
+}
