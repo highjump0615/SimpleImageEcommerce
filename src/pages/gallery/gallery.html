@@ -1,0 +1,71 @@
+<!--
+  Generated template for the GalleryPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar class="bg-grad">
+    <button
+      ion-button menuToggle
+      color="light">
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Gallery</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list>
+    <ion-item
+      detail-none
+      no-padding
+      *ngFor="let item of [1,2,3,4,5]">
+      <div class="flex-column">
+        <!-- image -->
+        <div class="dv-image flex-c-row">
+          <!-- default image icon -->
+          <ion-icon name="images"></ion-icon>
+
+          <!-- add to cart -->
+          <button
+            ion-button icon-start auto
+            (click)="onButAddCart()">
+            <ion-icon name="cart"></ion-icon>
+            Add to Cart
+          </button>
+        </div>
+
+        <div class="dv-content">
+          <!-- description -->
+          <span
+            class="sp-desc"
+          >Sed placerat lectus vel tempor feugiat. Cras justo nunc, convallis ac dolor vel, euismod venenatis.</span>
+
+          <div class="flex-c-row dv-rate">
+            <!-- rating -->
+            <star-rate
+              [rating]="3"
+              starSize="22">
+            </star-rate>
+
+            <!-- price -->
+            <span class="sp-price">$13</span>
+          </div>
+
+          <!-- comment -->
+          <button
+            ion-button
+            color="dark"
+            (click)="onButComment()"
+            clear>
+            <u>View Recent Comments</u>
+          </button>
+        </div>
+
+      </div>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

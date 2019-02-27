@@ -90,3 +90,13 @@
 .bottom-border {
   border-bottom: 1px solid #00000040;
 }
+
+//
+// button
+//
+button[auto] {
+  height: auto !important;
+  ion-icon {
+    line-height: 1;
+  }
+}
