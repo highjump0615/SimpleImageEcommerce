@@ -100,3 +100,14 @@ button[auto] {
     line-height: 1;
   }
 }
+
+ion-menu {
+  ion-content {
+    background: linear-gradient(#45c38a, #80e8a3);
+
+    button[ion-item] {
+      background: none;
+      color: map_get($colors, light);
+    }
+  }
+}
