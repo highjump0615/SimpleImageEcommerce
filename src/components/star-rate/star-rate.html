@@ -1,9 +1,11 @@
 <!-- Generated template for the StarRateComponent component -->
 <ion-icon
   *ngFor="let num of [1, 2, 3, 4, 5]"
-  [name]="isAboveRating(num) ? 'md-star-outline' : 'md-star'"
+  [name]="getIcon(num)"
   [ngStyle]="{
-    'font-size': starSize + 'pt'
+    'font-size': starSize + 'pt',
+    'margin-right': num > 0 ? margin + 'px' : '0',
+    'color': getColor(num)
   }"
   (click)="rate(num)">
 </ion-icon>

@@ -1,0 +1,110 @@
+<!--
+  Generated template for the ProductPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar class="bg-grad">
+    <ion-title>Product Detail</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="flex-column">
+    <!-- product info -->
+    <div class="flex-column dv-product">
+      <!-- image -->
+      <div class="dv-image flex-c-row">
+        <!-- default image icon -->
+        <ion-icon name="images"></ion-icon>
+
+        <!-- add to cart -->
+        <button
+          ion-button icon-start auto
+          (click)="onButAddCart()">
+          <ion-icon name="cart"></ion-icon>
+          Add to Cart
+        </button>
+      </div>
+
+      <div class="dv-content">
+        <!-- description -->
+        <span
+          class="sp-desc"
+        >Sed placerat lectus vel tempor feugiat. Cras justo nunc, convallis ac dolor vel, euismod venenatis.</span>
+
+        <div class="flex-c-row dv-rate">
+          <!-- rating -->
+          <star-rate
+            [rating]="3"
+            starSize="22">
+          </star-rate>
+
+          <!-- price -->
+          <span class="sp-price">$13</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- review list -->
+    <ion-list
+      class="list-custom"
+      no-lines>
+      <ion-list-header>
+        REVIEWS
+      </ion-list-header>
+
+      <ion-item
+        detail-none
+        no-padding
+        *ngFor="let item of [1,2,3,4,5]">
+
+        <!-- review data -->
+        <div class="flex-row">
+
+          <!-- user photo -->
+          <img
+            class="round img-user"
+            src="../../assets/imgs/default_user.png" />
+
+          <div
+            class="flex-column width-100 "
+            style="margin-left: 12px;">
+
+            <div class="flex-row space-between">
+              <div class="flex-column">
+                <!-- username -->
+                <span
+                  class="sp-username"
+                >Ellen McLaughlin</span>
+                <!-- time -->
+                <span
+                  class="sp-time"
+                >7 hours ago</span>
+              </div>
+
+              <!--star rating -->
+              <star-rate
+                [rating]="3"
+                [mode]="1"
+                starSize="16">
+              </star-rate>
+            </div>
+
+            <!-- review -->
+            <span
+              class="sp-review"
+            >Suspendisse imperdiet mi eget dolor sodales porttitor non vel elit. </span>
+
+          </div>
+
+        </div>
+
+      </ion-item>
+    </ion-list>
+
+  </div>
+
+</ion-content>

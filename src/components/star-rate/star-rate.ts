@@ -14,6 +14,12 @@ export class StarRateComponent {
 
   @Input() starSize = 11;
   @Input() readOnly = true;
+  @Input() margin = 0;
+  @Input() color = '#ffd027';
+
+  // 0: outline
+  // 1: filled
+  @Input() mode = 0;
 
   @Input() rating: number;
 
@@ -46,6 +52,22 @@ export class StarRateComponent {
    */
   isAboveRating(index: number): boolean {
     return index > this.rating;
+  }
+
+  getIcon(num) {
+    if (this.mode == 0) {
+      return this.isAboveRating(num) ? 'md-star-outline' : 'md-star';
+    }
+
+    return 'md-star';
+  }
+
+  getColor(num) {
+    if (this.mode == 0) {
+      return this.color;
+    }
+
+    return this.isAboveRating(num) ? '#d4d7db' : this.color;
   }
 
 }

@@ -1,0 +1,38 @@
+page-product {
+
+  ion-list-header {
+    color: grey !important;
+  }
+
+  .img-user {
+    width: 42px;
+    height: 42px;
+  }
+
+  ion-item {
+    padding: 12px 16px !important;
+  }
+
+  .sp-username {
+    color: darkslategrey;
+    font-size: 11pt;
+    font-weight: 500;
+  }
+  .sp-time {
+    color: #11111140;
+    font-size: 9pt;
+    margin-top: 10px;
+  }
+  .sp-review {
+    white-space: normal;
+    font-size: 11pt;
+    color: #111111c0;
+    margin-top: 10px;
+  }
+
+  .dv-product {
+    .dv-rate {
+      margin-top: 6px;
+    }
+  }
+}

@@ -42,6 +42,9 @@
 .flex-1 {
   flex: 1;
 }
+.space-between {
+  justify-content: space-between;
+}
 
 .hj-center {
   align-self: center;
@@ -83,6 +86,9 @@
 .round-corner {
   border-radius: 10px;
 }
+.round {
+  border-radius: 200px;
+}
 
 //
 // border
@@ -108,6 +114,77 @@ ion-menu {
     button[ion-item] {
       background: none;
       color: map_get($colors, light);
+    }
+  }
+}
+
+//
+// product
+//
+.dv-product {
+  .dv-image {
+    height: 210px;
+    background: #e8e8e8;
+    justify-content: center;
+    position: relative;
+
+    > ion-icon {
+      color: #aaa;
+      font-size: 54pt;
+    }
+
+    button {
+      position: absolute;
+      bottom: 16px;
+      right: 16px;
+      height: auto;
+      padding: 2px 12px !important;
+      margin: 0 !important;
+
+      ion-icon {
+        font-size: 20pt;
+      }
+    }
+  }
+
+  .dv-content {
+    padding: 8px 16px 16px 16px;
+    white-space: initial;
+    color: map_get($colors, dark);
+
+    .sp-desc {
+      font-size: 11pt;
+    }
+
+    .dv-rate {
+      color: map_get($colors, warning);
+      justify-content: space-between;
+
+      .sp-price {
+        font-weight: bold;
+        font-size: 20pt;
+      }
+    }
+
+    button {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+  }
+}
+
+
+//
+// list
+//
+.list-custom {
+  .item-inner {
+    padding: 0 !important;
+
+    .input-wrapper {
+      > ion-label {
+        margin: 0 !important;
+      }
     }
   }
 }
