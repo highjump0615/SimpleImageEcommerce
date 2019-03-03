@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
+import {BaseProductPage} from "../base-product";
 
 /**
  * Generated class for the ProductPage page.
@@ -13,13 +14,21 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   selector: 'page-product',
   templateUrl: 'product.html',
 })
-export class ProductPage {
+export class ProductPage extends BaseProductPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public toastCtrl: ToastController
+  ) {
+    super(toastCtrl);
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProductPage');
   }
 
+  onButAddCart() {
+    this.addToCart();
+  }
 }

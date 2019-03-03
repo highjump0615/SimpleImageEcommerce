@@ -22,4 +22,8 @@ export class SignupPage {
     console.log('ionViewDidLoad SignupPage');
   }
 
+  signupForm() {
+    // go to main page
+    this.navCtrl.setRoot('GalleryPage');
+  }
 }

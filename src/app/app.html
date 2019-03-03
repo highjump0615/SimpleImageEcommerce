@@ -8,9 +8,9 @@
   <ion-content>
     <ion-list>
       <button
-        menuClose
-        ion-item detail-none
         *ngFor="let p of pages"
+        [menuClose]="!p.component"
+        ion-item detail-none
         (click)="openPage(p)">
         <ion-icon
           [name]="p.icon"
@@ -21,7 +21,6 @@
 
       <!-- logout -->
       <button
-        menuClose
         ion-item detail-none
         (click)="onLogout()">
         <ion-icon

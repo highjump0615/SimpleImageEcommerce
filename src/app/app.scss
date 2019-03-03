@@ -198,3 +198,7 @@ ion-menu {
     }
   }
 }
+
+.back-button {
+  color: map_get($colors, light);
+}

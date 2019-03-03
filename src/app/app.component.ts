@@ -1,9 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import {AlertController, MenuController, Nav, Platform} from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
-import {LoginPage} from "../pages/login/login";
 
 @Component({
   templateUrl: 'app.html'
@@ -11,17 +9,23 @@ import {LoginPage} from "../pages/login/login";
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = LoginPage;
+  rootPage: any = 'LoginPage';
 
   pages: Array<{title: string, component: any, icon: string}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(
+    public platform: Platform,
+    public statusBar: StatusBar,
+    public splashScreen: SplashScreen,
+    public alertCtrl: AlertController,
+    public menuCtrl: MenuController
+  ) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Home', component: 'GalleryPage', icon: 'home' },
-      { title: 'Account', component: 'ProfilePage', icon: 'ios-person' },
+      { title: 'Account', component: null, icon: 'ios-person' },
       { title: 'Cart', component: 'CartPage', icon: 'cart' }
     ];
 
@@ -33,12 +37,42 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+
+      this.nav.setRoot(this.rootPage);
     });
   }
 
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page.component);
+    if (page.component) {
+      this.nav.setRoot(page.component);
+    }
+  }
+
+  onLogout() {
+    let alert = this.alertCtrl.create({
+      title: 'Are you sure to log out?',
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'OK',
+          handler: data => {
+            this.nav.setRoot('LoginPage');
+          }
+        }
+      ]
+    });
+
+    alert.onWillDismiss(() => {
+      // close menu
+      this.menuCtrl.close();
+    });
+    alert.present();
   }
 }

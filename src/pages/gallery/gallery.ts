@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
+import {BaseProductPage} from "../base-product";
 
 /**
  * Generated class for the GalleryPage page.
@@ -13,9 +14,14 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   selector: 'page-gallery',
   templateUrl: 'gallery.html',
 })
-export class GalleryPage {
+export class GalleryPage extends BaseProductPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public toastCtrl: ToastController
+  ) {
+    super(toastCtrl);
   }
 
   ionViewDidLoad() {
@@ -23,5 +29,10 @@ export class GalleryPage {
   }
 
   onButComment() {
+    this.navCtrl.push('ProductPage');
+  }
+
+  onButAddCart() {
+    this.addToCart();
   }
 }

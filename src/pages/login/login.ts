@@ -24,10 +24,6 @@ export class LoginPage {
     console.log('ionViewDidLoad LoginPage');
   }
 
-  onButLogin(event) {
-    
-  }
-
   onButGoogle(event) {
     
   }
@@ -38,5 +34,12 @@ export class LoginPage {
 
   onButSignup(event) {
     this.navCtrl.push('SignupPage');
+  }
+
+  signinForm() {
+    // log in
+
+    // go to main page
+    this.navCtrl.setRoot('GalleryPage');
   }
 }
