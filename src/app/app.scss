@@ -116,6 +116,9 @@ button[auto] {
     line-height: 1;
   }
 }
+button[ion-button] {
+  text-transform: none;
+}
 
 ion-menu {
   ion-content {
