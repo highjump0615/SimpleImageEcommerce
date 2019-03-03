@@ -1,0 +1,44 @@
+page-cart {
+  ion-list {
+    margin: 0 !important;
+  }
+
+  .dv-product {
+    padding: 14px 8px 10px 16px;
+
+    .dv-image {
+      height: 90px;
+      width: 110px;
+      flex: 3;
+
+      > ion-icon {
+        font-size: 44pt;
+      }
+    }
+
+    .dv-text {
+      flex: 5;
+      margin-left: 18px;
+
+      .sp-title {
+        font-weight: 500;
+      }
+      .sp-price {
+        margin-top: 6px;
+        font-size: 11pt;
+        font-weight: 700;
+        color: #ff5417;
+      }
+    }
+  }
+
+  .dv-line {
+    font-size: 11pt;
+    margin-bottom: 12px;
+  }
+
+  .dv-line-bold {
+    font-size: 12pt;
+    font-weight: 700;
+  }
+}
