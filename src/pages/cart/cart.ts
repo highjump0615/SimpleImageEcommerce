@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
 
 /**
  * Generated class for the CartPage page.
@@ -15,11 +15,36 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class CartPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public alertCtrl: AlertController,
+  ) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CartPage');
   }
 
+  onButRemove(index) {
+    let alert = this.alertCtrl.create({
+      title: 'Remove this item?',
+      message: 'Are you sure that you remove this product from the list?',
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'OK',
+          handler: data => {
+            console.log('Saved clicked');
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
 }

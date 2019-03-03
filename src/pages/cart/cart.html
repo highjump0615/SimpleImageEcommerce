@@ -24,7 +24,7 @@
         detail-none
         no-padding
         no-lines
-        *ngFor="let item of [1,2]">
+        *ngFor="let item of [1,2]; let i = index">
 
         <div class="dv-product flex-row">
           <!-- image -->
@@ -49,7 +49,8 @@
           <!-- close button -->
           <button
             ion-button clear icon-only
-            color="lightdark">
+            color="lightdark"
+            (click)="onButRemove(i)">
             <ion-icon name="close-circle"></ion-icon>
           </button>
         </div>
