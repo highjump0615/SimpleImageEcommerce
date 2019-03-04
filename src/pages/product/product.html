@@ -20,13 +20,23 @@
         <!-- default image icon -->
         <ion-icon name="images"></ion-icon>
 
-        <!-- add to cart -->
+        <!-- redownload -->
         <button
-          ion-button icon-start auto
-          (click)="onButAddCart()">
-          <ion-icon name="cart"></ion-icon>
-          Add to Cart
+          ion-button auto
+          *ngIf="isPurchased(); else butCart"
+          (click)="onButDownload()">
+          Re-Download
         </button>
+
+        <ng-template #butCart>
+          <!-- add to cart -->
+          <button
+            ion-button icon-start auto
+            (click)="onButAddCart()">
+            <ion-icon name="cart"></ion-icon>
+            Add to Cart
+          </button>
+        </ng-template>
       </div>
 
       <div class="dv-content">
@@ -108,3 +118,13 @@
   </div>
 
 </ion-content>
+
+<ion-footer
+  *ngIf="isPurchased()">
+  <button
+    ion-button auto
+    class="bt-normal"
+    (click)="onWriteReview()">
+    Left Review
+  </button>
+</ion-footer>

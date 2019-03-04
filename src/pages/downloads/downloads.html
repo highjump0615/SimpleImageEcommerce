@@ -19,8 +19,8 @@
 
   <ion-list class="list-custom">
     <ion-card
-      *ngFor="let item of [1,2,3,4,5,6]"
-      (click)="onItemDetail()">
+      *ngFor="let item of products; let i = index"
+      (click)="onItemDetail(i)">
       <div class="flex-column">
         <!-- product info -->
         <div class="flex-row dv-product">
@@ -48,7 +48,7 @@
                 [rating]="3"
                 starSize="12"
                 color="#ff5417"
-                [spacing]="2"
+                spacing="2"
                 [mode]="1">
               </star-rate>
               <span

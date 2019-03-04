@@ -35,4 +35,14 @@ page-product {
       margin-top: 6px;
     }
   }
+
+  ion-footer {
+    display: flex;
+    justify-content: center;
+    padding: 16px;
+
+    button {
+      padding: 10px 40px !important;
+    }
+  }
 }

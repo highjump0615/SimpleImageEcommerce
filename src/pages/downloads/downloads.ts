@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {Product} from "../../models/product";
 
 /**
  * Generated class for the DownloadsPage page.
@@ -15,14 +16,27 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class DownloadsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  products = [];
+
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams
+  ) {
+    for (let i = 0; i < 6; i++) {
+      let p = new Product();
+      p.purchased = true;
+
+      this.products.push(p);
+    }
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DownloadsPage');
   }
 
-  onItemDetail() {
-
+  onItemDetail(index) {
+    this.navCtrl.push('ProductPage', {
+      data: this.products[index]
+    });
   }
 }
