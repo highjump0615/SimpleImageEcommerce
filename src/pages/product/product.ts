@@ -43,5 +43,6 @@ export class ProductPage extends BaseProductPage {
 
   onWriteReview() {
     // go to write review page
+    this.navCtrl.push('WriteReviewPage');
   }
 }

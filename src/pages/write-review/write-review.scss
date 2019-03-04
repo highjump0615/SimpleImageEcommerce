@@ -1,0 +1,28 @@
+page-write-review {
+
+  star-rate {
+    align-self: center;
+  }
+
+  .sp-title {
+    margin: 12px 0 8px 8px;
+    color: #aaaaaa;
+  }
+
+  ion-card {
+    margin: 0 !important;
+    border-radius: 8px !important;
+    width: auto !important;
+    padding: 8px 0 8px 12px;
+    height: 50%;
+
+    ion-textarea {
+      height: 100%;
+    }
+  }
+
+  .bt-post {
+    margin-top: 40px;
+    align-self: center;
+  }
+}
