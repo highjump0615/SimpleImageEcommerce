@@ -26,7 +26,8 @@ export class MyApp {
     this.pages = [
       { title: 'Home', component: 'GalleryPage', icon: 'home' },
       { title: 'Account', component: null, icon: 'ios-person' },
-      { title: 'Cart', component: 'CartPage', icon: 'cart' }
+      { title: 'Cart', component: 'CartPage', icon: 'cart' },
+      { title: 'Downloads', component: 'DownloadsPage', icon: 'md-cloud-download' }
     ];
 
   }

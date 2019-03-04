@@ -42,6 +42,6 @@ export class LoginPage {
     // log in
 
     // go to main page
-    this.navCtrl.setRoot('GalleryPage');
+    this.navCtrl.setRoot('AboutPage');
   }
 }

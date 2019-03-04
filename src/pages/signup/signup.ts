@@ -24,6 +24,6 @@ export class SignupPage {
 
   signupForm() {
     // go to main page
-    this.navCtrl.setRoot('GalleryPage');
+    this.navCtrl.setRoot('AboutPage');
   }
 }
