@@ -14,7 +14,7 @@ export class StarRateComponent {
 
   @Input() starSize = 11;
   @Input() readOnly = true;
-  @Input() margin = 0;
+  @Input() spacing = 0;
   @Input() color = '#ffd027';
 
   // 0: outline

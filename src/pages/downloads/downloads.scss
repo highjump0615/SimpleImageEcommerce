@@ -1,0 +1,62 @@
+page-downloads {
+  ion-list {
+    padding: 10px 0;
+  }
+
+  ion-card {
+    border-radius: 10px !important;
+    margin: 6px 12px !important;
+    padding: 14px 18px;
+  }
+
+  .dv-product {
+    .dv-image {
+      height: 70px;
+      width: 70px;
+
+      > ion-icon {
+        font-size: 30pt;
+      }
+    }
+
+    .dv-text {
+      margin-left: 18px;
+
+      .sp-title {
+        font-size: 11pt;
+        font-weight: 500;
+      }
+      .sp-date {
+        margin-top: 8px;
+        font-size: 11pt;
+        color: #acacac;
+      }
+
+      .dv-rate {
+        margin-top: 8px;
+
+        .sp-rate {
+          font-size: 10pt;
+          margin-left: 8px;
+          color: #bcbcbc;
+        }
+      }
+    }
+  }
+
+  .dv-operation {
+    margin-top: 13px;
+
+    button {
+      border-radius: 8px;
+      padding: 12px 17px !important;
+    }
+
+    > span {
+      color: map_get($colors, primary);
+      font-size: 14pt;
+      font-weight: 500;
+    }
+  }
+
+}

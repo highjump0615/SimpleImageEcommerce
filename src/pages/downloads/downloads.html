@@ -1,0 +1,76 @@
+<!--
+  Generated template for the DownloadsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar class="bg-grad">
+    <button
+      ion-button menuToggle
+      color="light">
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Download Page</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list class="list-custom">
+    <ion-card
+      *ngFor="let item of [1,2,3,4,5,6]"
+      (click)="onItemDetail()">
+      <div class="flex-column">
+        <!-- product info -->
+        <div class="flex-row dv-product">
+          <!-- image -->
+          <div class="dv-image flex-c-row">
+            <!-- default image icon -->
+            <ion-icon name="images"></ion-icon>
+          </div>
+
+          <!-- content -->
+          <div class="flex-column dv-text">
+            <!-- title -->
+            <span
+              class="sp-title"
+            >Cocobolo Image</span>
+
+            <!-- date -->
+            <span
+              class="sp-date"
+            >27 Nov 2018</span>
+
+            <!-- rating -->
+            <div class="flex-c-row dv-rate">
+              <star-rate
+                [rating]="3"
+                starSize="12"
+                color="#ff5417"
+                [spacing]="2"
+                [mode]="1">
+              </star-rate>
+              <span
+                class="sp-rate"
+              >238 reviews</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- operation -->
+        <div class="flex-c-row space-between dv-operation">
+          <button
+            ion-button small
+          >Re-Download</button>
+
+          <!-- price -->
+          <span>$ 31</span>
+        </div>
+      </div>
+
+    </ion-card>
+
+  </ion-list>
+
+</ion-content>
