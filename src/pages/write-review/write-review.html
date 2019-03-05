@@ -11,7 +11,10 @@
 </ion-header>
 
 <ion-content padding>
-  <div class="container">
+  <div
+    #container
+    class="container"
+    [style.min-height]="this.mainHeight + 'px'">
     <!-- star rate -->
     <star-rate
       [rating]="0"

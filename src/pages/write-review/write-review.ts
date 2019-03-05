@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {IonicPage, NavController, NavParams, Platform} from 'ionic-angular';
+import {BasePage} from "../base";
 
 /**
  * Generated class for the WriteReviewPage page.
@@ -13,16 +14,18 @@ import {IonicPage, NavController, NavParams, Platform} from 'ionic-angular';
   selector: 'page-write-review',
   templateUrl: 'write-review.html',
 })
-export class WriteReviewPage {
+export class WriteReviewPage extends BasePage {
 
   constructor(
     public navCtrl: NavController,
-    public navParams: NavParams,
-    public platform: Platform
+    public navParams: NavParams
   ) {
+    super();
   }
 
-  ionViewDidLoad() {
+  ionViewDidEnter() {
+    super.ionViewDidEnter();
+
     console.log('ionViewDidLoad WriteReviewPage');
   }
 
