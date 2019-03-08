@@ -8,6 +8,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AuthProvider } from '../providers/auth/auth';
 import {IonicStorageModule} from "@ionic/storage";
+import {IonicImageViewerModule} from "ionic-img-viewer";
 
 const COMPONENTS = [
   MyApp,
@@ -21,6 +22,7 @@ const COMPONENTS = [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
+    IonicImageViewerModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

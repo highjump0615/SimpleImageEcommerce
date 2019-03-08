@@ -4,6 +4,7 @@ import {BaseProductPage} from "../base-product";
 import {AuthProvider} from "../../providers/auth/auth";
 import {FirebaseManager} from "../../helpers/firebase-manager";
 import {Product} from "../../models/product";
+import {ImageViewerController} from "ionic-img-viewer";
 
 /**
  * Generated class for the GalleryPage page.
@@ -26,7 +27,8 @@ export class GalleryPage extends BaseProductPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public toastCtrl: ToastController,
-    private auth: AuthProvider
+    private auth: AuthProvider,
+    public imageViewerCtrl: ImageViewerController
   ) {
     super(toastCtrl);
 
@@ -83,5 +85,15 @@ export class GalleryPage extends BaseProductPage {
       .catch((err) => {
         refresher.complete();
       });
+  }
+
+  onImage(view, index) {
+    //
+    // full screen image view
+    //
+    const imageViewer = this.imageViewerCtrl.create(view, {
+      fullResImage: this.products[index].imageUrl
+    });
+    imageViewer.present();
   }
 }
