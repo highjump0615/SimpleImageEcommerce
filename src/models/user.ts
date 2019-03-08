@@ -8,6 +8,7 @@ export class User extends BaseModel implements Deserializable {
   // table info
   //
   static TABLE_NAME = 'users';
+  static FIELD_NAME = 'username';
   static FIELD_EMAIL = 'email';
   static FIELD_TYPE = 'type';
   static FIELD_INITED = 'inited';
@@ -18,6 +19,7 @@ export class User extends BaseModel implements Deserializable {
   //
   // properties
   //
+  username = '';
   email = '';
   inited = false;
 
@@ -60,4 +62,18 @@ export class User extends BaseModel implements Deserializable {
       });
   }
 
+  tableName() {
+    return User.TABLE_NAME;
+  }
+
+  toDictionary() {
+    const dict = super.toDictionary();
+
+    dict[User.FIELD_NAME] = this.username;
+    dict[User.FIELD_EMAIL] = this.email;
+    dict[User.FIELD_TYPE] = this.type;
+    dict[User.FIELD_INITED] = this.inited;
+
+    return dict;
+  }
 }

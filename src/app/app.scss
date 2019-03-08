@@ -55,7 +55,7 @@
 //
 // background
 //
-.bg-grad {
+.bg-grad-toolbar {
   .toolbar-background {
     background: linear-gradient(to right, #45c38a, #80e8a3);
   }
@@ -63,6 +63,10 @@
   .toolbar-title {
     color: map_get($colors, light);
   }
+}
+
+.bg-grad {
+  background: linear-gradient(to right, #45c38a, #80e8a3);
 }
 
 //

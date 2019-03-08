@@ -14,11 +14,13 @@ export class BasePage {
   }
 
   ionViewDidEnter() {
-    // Get the height of the element
-    const height = this.container.nativeElement.offsetHeight;
+    if (this.container) {
+      // Get the height of the element
+      const height = this.container.nativeElement.offsetHeight;
 
-    this.mainHeight = height;
-    console.log(height);
+      this.mainHeight = height;
+      console.log(height);
+    }
   }
 
   showLoadingView(show = true, desc?: String) {

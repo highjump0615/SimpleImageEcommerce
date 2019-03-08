@@ -14,6 +14,8 @@ import {LoginPage} from "../pages/login/login";
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
+  rootPage: any = 'LoginPage';
+
   static KEY_USER = 'current_user';
 
   pages: Array<{title: string, component: any, icon: string}>;
@@ -70,6 +72,8 @@ export class MyApp {
     // Here you can do any higher level native things you might need.
     this.statusBar.styleDefault();
     this.splashScreen.hide();
+
+    console.log('current root page: ', this.rootPage);
 
     this.nav.setRoot(LoginPage.getMainPage(this.auth.user));
   }
