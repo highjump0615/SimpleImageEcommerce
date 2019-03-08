@@ -1,6 +1,5 @@
 import DataSnapshot = firebase.database.DataSnapshot;
 import {BaseModel} from "./base-model";
-import {FirebaseManager} from "../helpers/firebase-manager";
 
 export class Product extends BaseModel {
 
@@ -14,6 +13,8 @@ export class Product extends BaseModel {
   static FIELD_IMAGE = 'imageUrl';
   static FIELD_RATING = 'rating';
   static FIELD_REVIEW_COUNT = 'reviewCount';
+
+  static TABLE_NAME_CART = 'carts';
 
   //
   // properties
@@ -46,22 +47,6 @@ export class Product extends BaseModel {
         this.reviewCount = info[Product.FIELD_REVIEW_COUNT];
       }
     }
-  }
-
-  static readFromDatabase(withId: string): Promise<Product> {
-    const userRef = FirebaseManager.ref()
-      .child(Product.TABLE_NAME)
-      .child(withId);
-
-    return userRef.once('value')
-      .then((snapshot) => {
-        if (!snapshot.exists()) {
-          return Promise.reject(new Error('Product not found'));
-        }
-
-        const product = new Product(snapshot);
-        return Promise.resolve(product);
-      });
   }
 
   tableName() {

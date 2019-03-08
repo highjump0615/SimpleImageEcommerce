@@ -1,6 +1,6 @@
-import {FirebaseManager} from "../helpers/firebase-manager";
 import {BaseModel, Deserializable} from "./base-model";
 import DataSnapshot = firebase.database.DataSnapshot;
+import {Product} from "./product";
 
 export class User extends BaseModel implements Deserializable {
 
@@ -25,6 +25,9 @@ export class User extends BaseModel implements Deserializable {
 
   type = User.USER_TYPE_NORMAL;
 
+  // carts
+  carts: Array<Product>;
+
   constructor(withId?: string, snapshot?: DataSnapshot) {
     super(snapshot);
 
@@ -46,21 +49,7 @@ export class User extends BaseModel implements Deserializable {
     }
   }
 
-  static readFromDatabase(withId: string): Promise<User> {
-    const userRef = FirebaseManager.ref()
-      .child(User.TABLE_NAME)
-      .child(withId);
 
-    return userRef.once('value')
-      .then((snapshot) => {
-        if (!snapshot.exists()) {
-          return Promise.reject('User not found');
-        }
-
-        const user = new User(null, snapshot);
-        return Promise.resolve(user);
-      });
-  }
 
   tableName() {
     return User.TABLE_NAME;
@@ -75,5 +64,19 @@ export class User extends BaseModel implements Deserializable {
     dict[User.FIELD_INITED] = this.inited;
 
     return dict;
+  }
+
+  addProductToCart(product: Product) {
+    // user's carts are not initialized, return
+    if (!this.carts) {
+      return;
+    }
+
+    // already added, return
+    if (this.carts.find(p => p.id == product.id)) {
+      return;
+    }
+
+    this.carts.push(product);
   }
 }

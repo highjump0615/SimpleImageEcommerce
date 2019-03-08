@@ -14,7 +14,7 @@ import {LoginPage} from "../pages/login/login";
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = 'LoginPage';
+  // rootPage: any = 'LoginPage';
 
   static KEY_USER = 'current_user';
 
@@ -73,9 +73,7 @@ export class MyApp {
     this.statusBar.styleDefault();
     this.splashScreen.hide();
 
-    console.log('current root page: ', this.rootPage);
-
-    // this.nav.setRoot(LoginPage.getMainPage(this.auth.user));
+    this.nav.setRoot(LoginPage.getMainPage(this.auth.user));
   }
 
   openPage(page) {

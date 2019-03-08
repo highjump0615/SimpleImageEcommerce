@@ -1,8 +1,10 @@
-import { Injectable } from '@angular/core';
-import {User} from "../../models/user";
+import {Injectable, Provider} from '@angular/core';
 import {FirebaseManager} from "../../helpers/firebase-manager";
 import {Storage} from "@ionic/storage";
 import {MyApp} from "../../app/app.component";
+import {User} from "../../models/user";
+import {User as FUser} from "firebase";
+
 
 /*
   Generated class for the AuthProvider provider.
@@ -21,7 +23,23 @@ export class AuthProvider {
     console.log('Hello AuthProvider Provider');
   }
 
-  signIn(email: string, password: string) {
+  signUp(email: string, password: string): Promise<FUser> {
+    // do signup
+    return FirebaseManager.auth().createUserWithEmailAndPassword(
+      email,
+      password
+    ).then((res) => {
+      console.log(res);
+
+      if (!res.user) {
+        return Promise.reject(new Error('User not created'));
+      }
+
+      return Promise.resolve(res.user);
+    });
+  }
+
+  signIn(email: string, password: string): Promise<FUser> {
     // do login
     return FirebaseManager.auth().signInWithEmailAndPassword(
       email,
@@ -33,15 +51,7 @@ export class AuthProvider {
         return Promise.reject(new Error('User not found'));
       }
 
-      return User.readFromDatabase(res.user.uid)
-        .then((u) => {
-          if (u.type == User.USER_TYPE_ADMIN) {
-            return Promise.reject(new Error('Admin user cannot be used in the app'));
-          }
-
-          this.user = u;
-          this.updateCurrentUser();
-        });
+      return Promise.resolve(res.user);
     });
   }
 

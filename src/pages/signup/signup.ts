@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import {AlertController, IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
 import {Utils} from "../../helpers/utils";
 import {BasePage} from "../base";
-import {FirebaseManager} from "../../helpers/firebase-manager";
 import {User} from "../../models/user";
 import {AuthProvider} from "../../providers/auth/auth";
 
@@ -103,18 +102,12 @@ export class SignupPage extends BasePage {
     //
     this.showLoadingView();
 
-    FirebaseManager.auth().createUserWithEmailAndPassword(
+    this.auth.signUp(
       this.email,
       this.password
-    ).then((res) => {
-      console.log(res);
+    ).then((u) => {
 
       this.showLoadingView(false);
-
-      let u = res.user;
-      if (!u) {
-        return;
-      }
 
       // set user
       let userNew = new User(u.uid);

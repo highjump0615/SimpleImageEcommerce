@@ -7,6 +7,7 @@ import {Storage} from "@ionic/storage";
 import {FirebaseManager} from "../../helpers/firebase-manager";
 import {User} from "../../models/user";
 import {MyApp} from "../../app/app.component";
+import {ApiProvider} from "../../providers/api/api";
 
 /**
  * Generated class for the LoginPage page.
@@ -36,7 +37,8 @@ export class LoginPage extends BasePage {
     public navParams: NavParams,
     private alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
-    private auth: AuthProvider
+    private auth: AuthProvider,
+    private api: ApiProvider
   ) {
     super(loadingCtrl);
   }
@@ -104,26 +106,43 @@ export class LoginPage extends BasePage {
     this.auth.signIn(
       this.email,
       this.password
-    ).then( () => {
-      // go to main page
-      this.navCtrl.setRoot(LoginPage.getMainPage(this.auth.user));
+    ).then( (user) => {
 
-      this.showLoadingView(false);
+      // fetch user info from db
+      this.api.getUserWithId(user.uid)
+        .then((u) => {
+          if (u.type == User.USER_TYPE_ADMIN) {
+            this.onError(new Error('Admin user cannot be used in the app'));
+          }
+
+          this.auth.user = u;
+          this.auth.updateCurrentUser();
+
+          // go to main page
+          this.navCtrl.setRoot(LoginPage.getMainPage(this.auth.user));
+          this.showLoadingView(false);
+        })
+        .catch((err) => {
+          this.onError(err);
+        });
+
     }).catch((err) => {
       console.log(err);
 
-      this.showLoadingView(false);
-
-      // show error alert
-      let alert = this.alertCtrl.create({
-        title: 'Login Failed',
-        message: err.message,
-        buttons: ['Ok']
-      });
-      alert.present();
+      this.onError(err);
     });
+  }
 
+  onError(err) {
+    this.showLoadingView(false);
 
+    // show error alert
+    let alert = this.alertCtrl.create({
+      title: 'Login Failed',
+      message: err.message,
+      buttons: ['Ok']
+    });
+    alert.present();
   }
 
   static getMainPage(user: User) {

@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import {IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
 import {BaseProductPage} from "../base-product";
 import {AuthProvider} from "../../providers/auth/auth";
-import {FirebaseManager} from "../../helpers/firebase-manager";
 import {Product} from "../../models/product";
 import {ImageViewerController} from "ionic-img-viewer";
+import {ApiProvider} from "../../providers/api/api";
 
 /**
  * Generated class for the GalleryPage page.
@@ -27,10 +27,11 @@ export class GalleryPage extends BaseProductPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public toastCtrl: ToastController,
-    private auth: AuthProvider,
+    public auth: AuthProvider,
+    public api: ApiProvider,
     public imageViewerCtrl: ImageViewerController
   ) {
-    super(toastCtrl);
+    super(auth, api, toastCtrl);
 
     this.fetchProducts(true);
   }
@@ -43,30 +44,18 @@ export class GalleryPage extends BaseProductPage {
     this.navCtrl.push('ProductPage');
   }
 
-  onButAddCart() {
-    this.addToCart();
+  onButAddCart(index, event) {
+    this.addToCart(this.products[index]);
+
+    event.stopPropagation();
   }
 
   fetchProducts(showLoading: boolean) {
-    var that = this;
     this.showLoading = showLoading;
 
-    // fetch products
-    const dbRef = FirebaseManager.ref();
-
-    let query: any = dbRef.child(Product.TABLE_NAME);
-    return query.once('value')
-      .then((snapshot) => {
-        console.log(snapshot);
-
-        // clear data
-        this.products = [];
-
-        snapshot.forEach(function(child) {
-          const p = new Product(child);
-
-          that.products.push(p);
-        });
+    return this.api.fetchAllProducts()
+      .then((prods) => {
+        this.products = prods;
 
         this.showLoading = false;
       })

@@ -9,6 +9,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { AuthProvider } from '../providers/auth/auth';
 import {IonicStorageModule} from "@ionic/storage";
 import {IonicImageViewerModule} from "ionic-img-viewer";
+import { ApiProvider } from '../providers/api/api';
 
 const COMPONENTS = [
   MyApp,
@@ -32,7 +33,8 @@ const COMPONENTS = [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AuthProvider
+    AuthProvider,
+    ApiProvider
   ]
 })
 export class AppModule {}

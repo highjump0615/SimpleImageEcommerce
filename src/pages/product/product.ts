@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import {IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
 import {BaseProductPage} from "../base-product";
 import {Product} from "../../models/product";
+import {AuthProvider} from "../../providers/auth/auth";
+import {ApiProvider} from "../../providers/api/api";
 
 /**
  * Generated class for the ProductPage page.
@@ -21,9 +23,11 @@ export class ProductPage extends BaseProductPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    public auth: AuthProvider,
+    public api: ApiProvider,
     public toastCtrl: ToastController
   ) {
-    super(toastCtrl);
+    super(auth, api, toastCtrl);
 
     // get product info
     this.product = navParams.get('data');
@@ -38,7 +42,7 @@ export class ProductPage extends BaseProductPage {
   }
 
   onButAddCart() {
-    this.addToCart();
+    // this.addToCart();
   }
 
   onWriteReview() {
