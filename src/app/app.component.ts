@@ -75,7 +75,7 @@ export class MyApp {
 
     console.log('current root page: ', this.rootPage);
 
-    this.nav.setRoot(LoginPage.getMainPage(this.auth.user));
+    // this.nav.setRoot(LoginPage.getMainPage(this.auth.user));
   }
 
   openPage(page) {

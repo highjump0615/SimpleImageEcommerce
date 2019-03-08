@@ -150,6 +150,19 @@ ion-menu {
     justify-content: center;
     position: relative;
 
+    // main image
+    > ion-img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
     > ion-icon {
       color: #aaa;
       font-size: 54pt;
@@ -175,6 +188,7 @@ ion-menu {
     color: map_get($colors, dark);
 
     .sp-desc {
+      white-space: pre;
       font-size: 11pt;
     }
 
@@ -225,4 +239,18 @@ ion-textarea {
     width: 100%;
     height: 100%;
   }
+}
+
+ion-list {
+  ion-spinner {
+    display: block;
+    margin: 40px auto;
+    width: 20px;
+    height: 20px;
+  }
+}
+.dv-no-list-item {
+  padding: 48px;
+  justify-content: center;
+  color: gray;
 }

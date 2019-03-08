@@ -133,7 +133,7 @@ export class LoginPage extends BasePage {
     }
 
     if (user.inited) {
-      return 'HomePage';
+      return 'GalleryPage';
     }
 
     return 'AboutPage';

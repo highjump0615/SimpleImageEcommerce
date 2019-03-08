@@ -25,7 +25,7 @@ export class BasePage {
 
   showLoadingView(show = true, desc?: String) {
     if (show) {
-      // show loading view
+      // show showLoading view
       this.loadingView = this.loadingCtrl.create();
       this.loadingView.present();
     }
