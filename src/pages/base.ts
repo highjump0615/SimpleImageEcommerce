@@ -1,9 +1,17 @@
 import {ViewChild} from "@angular/core";
+import {LoadingController} from "ionic-angular";
+import {User} from "../models/user";
 
 export class BasePage {
+  loadingView: any;
   @ViewChild('container') container: any;
 
   mainHeight = 0;
+
+  constructor(
+    public loadingCtrl?: LoadingController
+  ) {
+  }
 
   ionViewDidEnter() {
     // Get the height of the element
@@ -11,5 +19,19 @@ export class BasePage {
 
     this.mainHeight = height;
     console.log(height);
+  }
+
+  showLoadingView(show = true, desc?: String) {
+    if (show) {
+      // show loading view
+      this.loadingView = this.loadingCtrl.create();
+      this.loadingView.present();
+    }
+    else {
+      if (this.loadingView) {
+        // hide
+        this.loadingView.dismiss();
+      }
+    }
   }
 }
