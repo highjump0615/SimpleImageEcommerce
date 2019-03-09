@@ -40,8 +40,10 @@ export class GalleryPage extends BaseProductPage {
     console.log('ionViewDidLoad GalleryPage');
   }
 
-  onButComment() {
-    this.navCtrl.push('ProductPage');
+  onButComment(index) {
+    this.navCtrl.push('ProductPage', {
+      data: this.products[index]
+    });
   }
 
   onButAddCart(index, event) {

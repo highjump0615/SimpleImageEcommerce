@@ -4,6 +4,7 @@ import {BaseProductPage} from "../base-product";
 import {Product} from "../../models/product";
 import {AuthProvider} from "../../providers/auth/auth";
 import {ApiProvider} from "../../providers/api/api";
+import {Review} from "../../models/review";
 
 /**
  * Generated class for the ProductPage page.
@@ -20,6 +21,9 @@ import {ApiProvider} from "../../providers/api/api";
 export class ProductPage extends BaseProductPage {
   product: Product;
 
+  reviews: Array<Review> = [];
+  showLoading = true;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -31,6 +35,35 @@ export class ProductPage extends BaseProductPage {
 
     // get product info
     this.product = navParams.get('data');
+    if (!this.product) {
+      return;
+    }
+
+    // fetch its reviews
+    this.api.fetchReviews(this.product.id)
+      .then((revs) => {
+        this.reviews = revs;
+
+        this.showLoading = false;
+      })
+      .catch((err) => {
+        console.log(err);
+
+        this.showLoading = false;
+      });
+  }
+
+  isInCart(): boolean {
+    if (!this.product) {
+      return false;
+    }
+
+    // cart is not initialized
+    if (!this.auth.user.carts) {
+      return false;
+    }
+
+    return !!this.auth.user.carts.find(p => p.id == this.product.id);
   }
 
   isPurchased() {

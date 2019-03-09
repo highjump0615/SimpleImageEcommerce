@@ -32,7 +32,8 @@
         detail-none
         no-padding
         no-lines
-        *ngFor="let p of getData(); let i = index">
+        *ngFor="let p of getData(); let i = index"
+        (click)="onItem(i)">
 
         <div class="dv-product flex-row">
           <!-- image -->
@@ -60,7 +61,7 @@
           <button
             ion-button clear icon-only
             color="lightdark"
-            (click)="onButRemove(i)">
+            (click)="onButRemove(i, $event)">
             <ion-icon name="close-circle"></ion-icon>
           </button>
         </div>

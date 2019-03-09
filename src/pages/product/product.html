@@ -17,6 +17,8 @@
     <div class="flex-column dv-product">
       <!-- image -->
       <div class="dv-image flex-c-row">
+        <img src="{{product?.imageUrl}}" />
+
         <!-- default image icon -->
         <ion-icon name="images"></ion-icon>
 
@@ -32,7 +34,8 @@
           <!-- add to cart -->
           <button
             ion-button icon-start auto
-            (click)="onButAddCart()">
+            (click)="onButAddCart()"
+            *ngIf="!isInCart()">
             <ion-icon name="cart"></ion-icon>
             Add to Cart
           </button>
@@ -43,17 +46,17 @@
         <!-- description -->
         <span
           class="sp-desc"
-        >Sed placerat lectus vel tempor feugiat. Cras justo nunc, convallis ac dolor vel, euismod venenatis.</span>
+        >{{product?.desc}}</span>
 
         <div class="flex-c-row dv-rate">
           <!-- rating -->
           <star-rate
-            [rating]="3"
+            [rating]="product?.rating"
             starSize="22">
           </star-rate>
 
           <!-- price -->
-          <span class="sp-price">$13</span>
+          <span class="sp-price">${{product?.price}}</span>
         </div>
       </div>
     </div>
@@ -61,15 +64,24 @@
     <!-- review list -->
     <ion-list
       class="list-custom"
+      [virtualScroll]="reviews"
       no-lines>
       <ion-list-header>
         REVIEWS
       </ion-list-header>
 
+      <!-- showLoading -->
+      <ion-spinner *ngIf="showLoading"></ion-spinner>
+      <div
+        class="dv-no-list-item flex-c-row"
+        *ngIf="!showLoading && reviews.length == 0">
+        <span>No reviews yet</span>
+      </div>
+
       <ion-item
         detail-none
         no-padding
-        *ngFor="let item of [1,2,3,4,5]">
+        *virtualItem="let r">
 
         <!-- review data -->
         <div class="flex-row">

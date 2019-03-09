@@ -75,7 +75,10 @@ export class CartPage {
     console.log('ionViewDidLoad CartPage');
   }
 
-  onButRemove(index) {
+  onButRemove(index, event) {
+    // disable item click below
+    event.stopPropagation();
+
     let alert = this.alertCtrl.create({
       title: 'Remove this item?',
       message: 'Are you sure that you remove this product from the list?',
@@ -129,5 +132,11 @@ export class CartPage {
 
     // remove from user object
     this.getData().splice(index, 1);
+  }
+
+  onItem(index) {
+    this.navCtrl.push('ProductPage', {
+      data: this.getData()[index]
+    });
   }
 }

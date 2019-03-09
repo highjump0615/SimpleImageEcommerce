@@ -195,7 +195,7 @@ ion-menu {
     color: map_get($colors, dark);
 
     .sp-desc {
-      white-space: pre;
+      white-space: pre-wrap;
       font-size: 11pt;
     }
 

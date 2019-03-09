@@ -4,6 +4,7 @@ import {AuthProvider} from "../auth/auth";
 import {FirebaseManager} from "../../helpers/firebase-manager";
 import {Product} from "../../models/product";
 import {User} from "../../models/user";
+import {Review} from "../../models/review";
 
 /*
   Generated class for the ApiProvider provider.
@@ -53,9 +54,6 @@ export class ApiProvider {
 
     let query: any = dbRef.child(Product.TABLE_NAME_CART)
       .child(this.auth.user.id);
-
-    let nCount = 0;
-    let nFetched = 0;
 
     return query.once('value')
       .then((snapshot) => {
@@ -137,5 +135,30 @@ export class ApiProvider {
       .child(product.id);
 
     dbRef.remove();
+  }
+
+  /**
+   * fetch all reviews of the product
+   * @param pId
+   */
+  fetchReviews(pId) {
+    let reviews = [];
+
+    let query = FirebaseManager.ref()
+      .child(Review.TABLE_NAME)
+      .child(pId);
+
+    return query.once('value')
+      .then((snapshot) => {
+        console.log(snapshot);
+
+        snapshot.forEach(function(child) {
+          const r = new Review(child);
+
+          reviews.push(r);
+        });
+
+        return Promise.resolve(reviews);
+      });
   }
 }
