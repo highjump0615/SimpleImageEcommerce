@@ -50,7 +50,6 @@ export class CartPage {
           this.showLoading = false;
         }
 
-        let nFetched = 0;
         for (let id of ids) {
           this.api.getProductWithId(id)
             .then((p) => {

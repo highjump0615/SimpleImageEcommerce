@@ -30,6 +30,7 @@ export class User extends BaseModel implements Deserializable {
 
   // purchased
   purchasedIds: Array<string>;
+  purchased: Array<Product>;
 
   constructor(withId?: string, snapshot?: DataSnapshot) {
     super(snapshot);

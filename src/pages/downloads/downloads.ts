@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {Product} from "../../models/product";
+import {AuthProvider} from "../../providers/auth/auth";
+import {ApiProvider} from "../../providers/api/api";
 
 /**
  * Generated class for the DownloadsPage page.
@@ -15,17 +17,42 @@ import {Product} from "../../models/product";
   templateUrl: 'downloads.html',
 })
 export class DownloadsPage {
-
-  products = [];
+  showLoading = false;
 
   constructor(
     public navCtrl: NavController,
-    public navParams: NavParams
+    public navParams: NavParams,
+    public api: ApiProvider,
+    private auth: AuthProvider
   ) {
-    for (let i = 0; i < 6; i++) {
-      let p = new Product();
+    if (!auth.user) {
+      return;
+    }
 
-      this.products.push(p);
+    if (auth.user.purchased) {
+      // already initialized
+      return;
+    }
+
+    // fetch carts
+    const prods = [];
+
+    for (let id of this.auth.user.purchasedIds) {
+      this.api.getProductWithId(id)
+        .then((p) => {
+          prods.push(p);
+
+          // fetched all
+          if (prods.length == this.auth.user.purchasedIds.length) {
+            this.auth.user.purchased = prods;
+            this.showLoading = false;
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+
+          this.showLoading = false;
+        });
     }
   }
 
@@ -33,9 +60,17 @@ export class DownloadsPage {
     console.log('ionViewDidLoad DownloadsPage');
   }
 
+  getData() {
+    if (this.auth.user && this.auth.user.purchased) {
+      return this.auth.user.purchased;
+    }
+
+    return [];
+  }
+
   onItemDetail(index) {
     this.navCtrl.push('ProductPage', {
-      data: this.products[index]
+      data: this.getData()[index]
     });
   }
 }

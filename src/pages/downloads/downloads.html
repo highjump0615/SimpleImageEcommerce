@@ -17,15 +17,30 @@
 
 <ion-content>
 
-  <ion-list class="list-custom">
+  <ion-list
+    class="list-custom"
+    [virtualScroll]="getData()">
+    <!-- showLoading -->
+    <ion-spinner *ngIf="showLoading"></ion-spinner>
+    <div
+      class="dv-no-list-item flex-c-row"
+      *ngIf="!showLoading && getData().length == 0">
+      <span>No products purchased yet</span>
+    </div>
+
     <ion-card
-      *ngFor="let item of products; let i = index"
+      *virtualItem="let p; let i = index"
       (click)="onItemDetail(i)">
       <div class="flex-column">
         <!-- product info -->
         <div class="flex-row dv-product">
           <!-- image -->
           <div class="dv-image flex-c-row">
+            <ion-img
+              src="{{p.imageUrl}}"
+              [cache]="true"
+            ></ion-img>
+
             <!-- default image icon -->
             <ion-icon name="images"></ion-icon>
           </div>
@@ -35,17 +50,17 @@
             <!-- title -->
             <span
               class="sp-title"
-            >Cocobolo Image</span>
+            >{{p.title}}</span>
 
             <!-- date -->
             <span
               class="sp-date"
-            >27 Nov 2018</span>
+            >{{p.createdAtStr()}}</span>
 
             <!-- rating -->
             <div class="flex-c-row dv-rate">
               <star-rate
-                [rating]="3"
+                [rating]="p.rating"
                 starSize="12"
                 color="#ff5417"
                 spacing="2"
@@ -53,7 +68,7 @@
               </star-rate>
               <span
                 class="sp-rate"
-              >238 reviews</span>
+              >{{p.reviewCount}} reviews</span>
             </div>
           </div>
         </div>
@@ -65,7 +80,7 @@
           >Re-Download</button>
 
           <!-- price -->
-          <span>$ 31</span>
+          <span>$ {{p.price}}</span>
         </div>
       </div>
 
