@@ -5,6 +5,7 @@ import {FirebaseManager} from "../../helpers/firebase-manager";
 import {Product} from "../../models/product";
 import {User} from "../../models/user";
 import {Review} from "../../models/review";
+import {Order} from "../../models/order";
 
 /*
   Generated class for the ApiProvider provider.
@@ -159,6 +160,57 @@ export class ApiProvider {
         });
 
         return Promise.resolve(reviews);
+      });
+  }
+
+  purchaseFromCart() {
+    let dbRef = FirebaseManager.ref()
+      .child(Product.TABLE_NAME_PURCHASE)
+      .child(this.auth.user.id);
+
+    for (let p of this.auth.user.carts) {
+      // add to order
+      let o = new Order();
+
+      o.userId = this.auth.user.id;
+      o.productId = p.id;
+      o.price = p.price;
+
+      o.saveToDatabase();
+
+      // add to purchased
+      dbRef.child(p.id).set(o.id);
+    }
+
+    // clear carts
+    this.auth.user.carts = [];
+    FirebaseManager.ref()
+      .child(Product.TABLE_NAME_CART)
+      .child(this.auth.user.id)
+      .remove();
+  }
+
+  fetchPurchased() {
+    // fetch products
+    const dbRef = FirebaseManager.ref();
+
+    let query: any = dbRef.child(Product.TABLE_NAME_PURCHASE)
+      .child(this.auth.user.id);
+
+    return query.once('value')
+      .then((snapshot) => {
+        console.log(snapshot);
+
+        // clear data
+        let ids = [];
+
+        snapshot.forEach(function(child) {
+          // get product key
+          ids.push(child.key);
+        });
+
+        this.auth.user.purchasedIds = ids;
+        return Promise.resolve(ids);
       });
   }
 }

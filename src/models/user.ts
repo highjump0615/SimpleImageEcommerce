@@ -28,6 +28,9 @@ export class User extends BaseModel implements Deserializable {
   // carts
   carts: Array<Product>;
 
+  // purchased
+  purchasedIds: Array<string>;
+
   constructor(withId?: string, snapshot?: DataSnapshot) {
     super(snapshot);
 

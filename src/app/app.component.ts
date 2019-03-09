@@ -7,6 +7,7 @@ import {AuthProvider} from "../providers/auth/auth";
 import {Storage} from "@ionic/storage";
 import {User} from "../models/user";
 import {LoginPage} from "../pages/login/login";
+import {ApiProvider} from "../providers/api/api";
 
 @Component({
   templateUrl: 'app.html'
@@ -27,6 +28,7 @@ export class MyApp {
     public alertCtrl: AlertController,
     public menuCtrl: MenuController,
     private auth: AuthProvider,
+    private api: ApiProvider,
     private storage: Storage
   ) {
     this.initializeApp();
@@ -55,6 +57,7 @@ export class MyApp {
         .then((val) => {
           if (val) {
             this.auth.user = new User().deserialize(val);
+            this.api.fetchPurchased();
           }
 
           this.finalizeInit();

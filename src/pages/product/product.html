@@ -23,23 +23,25 @@
         <ion-icon name="images"></ion-icon>
 
         <!-- redownload -->
-        <button
-          ion-button auto
-          *ngIf="isPurchased(); else butCart"
-          (click)="onButDownload()">
-          Re-Download
-        </button>
-
-        <ng-template #butCart>
-          <!-- add to cart -->
+        <div *ngIf="isOperationAvailable()">
           <button
-            ion-button icon-start auto
-            (click)="onButAddCart()"
-            *ngIf="!isInCart()">
-            <ion-icon name="cart"></ion-icon>
-            Add to Cart
+            ion-button auto
+            *ngIf="isPurchased(); else butCart"
+            (click)="onButDownload()">
+            Re-Download
           </button>
-        </ng-template>
+
+          <ng-template #butCart>
+            <!-- add to cart -->
+            <button
+              ion-button icon-start auto
+              (click)="onButAddCart()"
+              *ngIf="!isInCart()">
+              <ion-icon name="cart"></ion-icon>
+              Add to Cart
+            </button>
+          </ng-template>
+        </div>
       </div>
 
       <div class="dv-content">

@@ -15,6 +15,7 @@ export class Product extends BaseModel {
   static FIELD_REVIEW_COUNT = 'reviewCount';
 
   static TABLE_NAME_CART = 'carts';
+  static TABLE_NAME_PURCHASE = 'purchased';
 
   //
   // properties
@@ -26,8 +27,6 @@ export class Product extends BaseModel {
 
   rating = 0;
   reviewCount = 0;
-
-  purchased = false;
 
   constructor(snapshot?: DataSnapshot) {
     super(snapshot);

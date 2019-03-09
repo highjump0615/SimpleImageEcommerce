@@ -11,6 +11,18 @@ export class BaseProductPage {
   ) {
   }
 
+  /**
+   * add cart is available when it is not purchased only
+   * @param product
+   */
+  isPurchased(product: Product) {
+    if (!this.auth.user.purchasedIds) {
+      return false;
+    }
+
+    return !!this.auth.user.purchasedIds.find(p => p == product.id);
+  }
+
   addToCart(product: Product) {
 
     // add product id to cart table

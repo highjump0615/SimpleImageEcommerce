@@ -24,7 +24,6 @@ export class DownloadsPage {
   ) {
     for (let i = 0; i < 6; i++) {
       let p = new Product();
-      p.purchased = true;
 
       this.products.push(p);
     }

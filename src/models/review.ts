@@ -28,4 +28,8 @@ export class Review extends BaseModel {
       this.desc = info[Review.FIELD_DESC];
     }
   }
+
+  tableName() {
+    return Review.TABLE_NAME;
+  }
 }

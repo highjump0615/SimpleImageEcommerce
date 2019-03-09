@@ -67,7 +67,14 @@ export class ProductPage extends BaseProductPage {
   }
 
   isPurchased() {
-    return this.product && this.product.purchased;
+    return this.product && super.isPurchased(this.product);
+  }
+
+  /**
+   * any button cannot be available until
+   */
+  isOperationAvailable() {
+    return this.auth.user && this.auth.user.purchasedIds;
   }
 
   ionViewDidLoad() {

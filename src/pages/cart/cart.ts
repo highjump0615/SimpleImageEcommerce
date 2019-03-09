@@ -43,7 +43,7 @@ export class CartPage {
     // fetch carts
     this.api.fetchCarts()
       .then((ids) => {
-        var prods = [];
+        const prods = [];
 
         if (ids.length == 0) {
           this.auth.user.carts = prods;
@@ -138,5 +138,12 @@ export class CartPage {
     this.navCtrl.push('ProductPage', {
       data: this.getData()[index]
     });
+  }
+
+  onButPay() {
+    // go to payment page
+
+    // make orders
+    this.api.purchaseFromCart();
   }
 }
