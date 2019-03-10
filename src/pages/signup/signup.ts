@@ -116,6 +116,7 @@ export class SignupPage extends BasePage {
       userNew.email = this.email;
       userNew.username = this.username;
       userNew.inited = true;
+      userNew.purchasedIds = [];
       userNew.saveToDatabase();
 
       this.auth.user = userNew;

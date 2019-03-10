@@ -1,8 +1,12 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {AlertController, IonicPage, NavController, NavParams, Platform, ToastController} from 'ionic-angular';
 import {Product} from "../../models/product";
 import {AuthProvider} from "../../providers/auth/auth";
 import {ApiProvider} from "../../providers/api/api";
+import {BaseProductPage} from "../base-product";
+import {FileTransfer} from '@ionic-native/file-transfer';
+import {File} from "@ionic-native/file";
+
 
 /**
  * Generated class for the DownloadsPage page.
@@ -16,15 +20,22 @@ import {ApiProvider} from "../../providers/api/api";
   selector: 'page-downloads',
   templateUrl: 'downloads.html',
 })
-export class DownloadsPage {
+export class DownloadsPage extends BaseProductPage {
   showLoading = false;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    public toastCtrl: ToastController,
+    public platform: Platform,
     public api: ApiProvider,
-    private auth: AuthProvider
+    public auth: AuthProvider,
+    public transfer: FileTransfer,
+    public file: File,
+    public alertCtrl: AlertController
   ) {
+    super(auth, api, toastCtrl, transfer, file, alertCtrl, platform);
+
     if (!auth.user) {
       return;
     }
@@ -34,10 +45,15 @@ export class DownloadsPage {
       return;
     }
 
+    if (!auth.user.purchasedIds) {
+      // not initialized
+      return;
+    }
+
     // fetch carts
     const prods = [];
 
-    for (let id of this.auth.user.purchasedIds) {
+    for (let id of auth.user.purchasedIds) {
       this.api.getProductWithId(id)
         .then((p) => {
           prods.push(p);

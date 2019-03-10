@@ -10,6 +10,8 @@ import { AuthProvider } from '../providers/auth/auth';
 import {IonicStorageModule} from "@ionic/storage";
 import {IonicImageViewerModule} from "ionic-img-viewer";
 import { ApiProvider } from '../providers/api/api';
+import {FileTransfer} from "@ionic-native/file-transfer";
+import {File} from "@ionic-native/file";
 
 const COMPONENTS = [
   MyApp,
@@ -34,7 +36,9 @@ const COMPONENTS = [
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
-    ApiProvider
+    ApiProvider,
+    File,
+    FileTransfer
   ]
 })
 export class AppModule {}

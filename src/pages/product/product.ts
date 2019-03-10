@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
-import {IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
+import {AlertController, IonicPage, NavController, NavParams, Platform, ToastController} from 'ionic-angular';
 import {BaseProductPage} from "../base-product";
 import {Product} from "../../models/product";
 import {AuthProvider} from "../../providers/auth/auth";
 import {ApiProvider} from "../../providers/api/api";
 import {Review} from "../../models/review";
+import {FileTransfer} from "@ionic-native/file-transfer";
+import {File} from "@ionic-native/file";
 
 /**
  * Generated class for the ProductPage page.
@@ -29,9 +31,13 @@ export class ProductPage extends BaseProductPage {
     public navParams: NavParams,
     public auth: AuthProvider,
     public api: ApiProvider,
-    public toastCtrl: ToastController
+    public toastCtrl: ToastController,
+    public transfer: FileTransfer,
+    public file: File,
+    public alertCtrl: AlertController,
+    public platform: Platform
   ) {
-    super(auth, api, toastCtrl);
+    super(auth, api, toastCtrl, transfer, file, alertCtrl, platform);
 
     // get product info
     this.product = navParams.get('data');

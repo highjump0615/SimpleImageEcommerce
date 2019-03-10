@@ -27,7 +27,7 @@
           <button
             ion-button auto
             *ngIf="isPurchased(); else butCart"
-            (click)="onButDownload()">
+            (click)="doDownload(product, $event)">
             Re-Download
           </button>
 

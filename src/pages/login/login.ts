@@ -117,6 +117,7 @@ export class LoginPage extends BasePage {
 
           this.auth.user = u;
           this.auth.updateCurrentUser();
+          this.api.fetchPurchased();
 
           // go to main page
           this.navCtrl.setRoot(LoginPage.getMainPage(this.auth.user));

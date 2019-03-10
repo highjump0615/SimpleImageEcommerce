@@ -16,6 +16,7 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   // rootPage: any = 'LoginPage';
+  currrentPage = '';
 
   static KEY_USER = 'current_user';
 
@@ -76,14 +77,21 @@ export class MyApp {
     this.statusBar.styleDefault();
     this.splashScreen.hide();
 
-    this.nav.setRoot(LoginPage.getMainPage(this.auth.user));
+    this.currrentPage = LoginPage.getMainPage(this.auth.user);
+    this.nav.setRoot(this.currrentPage);
   }
 
   openPage(page) {
+    if (this.currrentPage == page.component) {
+      return;
+    }
+
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     if (page.component) {
       this.nav.setRoot(page.component);
+
+      this.currrentPage = page.component;
     }
   }
 
