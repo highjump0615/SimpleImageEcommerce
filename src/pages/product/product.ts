@@ -48,9 +48,24 @@ export class ProductPage extends BaseProductPage {
     // fetch its reviews
     this.api.fetchReviews(this.product.id)
       .then((revs) => {
-        this.reviews = revs;
+        let rvs = [];
 
-        this.showLoading = false;
+        // fetch users
+        for (let r of revs) {
+          this.api.getUserWithId(r.userId)
+            .then((u) => {
+              const rv: Review = r;
+              rv.user = u;
+              rvs.push(rv);
+
+              // fetched all
+              if (rvs.length == revs.length) {
+                this.showLoading = false;
+
+                this.reviews = rvs;
+              }
+            });
+        }
       })
       .catch((err) => {
         console.log(err);

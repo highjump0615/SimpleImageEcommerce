@@ -20,7 +20,7 @@ export class Utils {
     let time = moment(timestamp);
 
     let duration = moment.duration(moment().diff(time));
-    let mins = duration.asMinutes();
+    let mins = Math.floor(duration.asMinutes());
 
     if (mins <= 0) {
       return 'Now';

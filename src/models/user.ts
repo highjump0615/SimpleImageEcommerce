@@ -12,6 +12,7 @@ export class User extends BaseModel implements Deserializable {
   static FIELD_EMAIL = 'email';
   static FIELD_TYPE = 'type';
   static FIELD_INITED = 'inited';
+  static FIELD_PHOTO = 'photoUrl';
 
   static USER_TYPE_NORMAL = 'normal';
   static USER_TYPE_ADMIN = 'admin';
@@ -22,6 +23,7 @@ export class User extends BaseModel implements Deserializable {
   username = '';
   email = '';
   inited = false;
+  photoUrl: string;
 
   type = User.USER_TYPE_NORMAL;
 
@@ -40,6 +42,9 @@ export class User extends BaseModel implements Deserializable {
 
       this.email = info[User.FIELD_EMAIL];
 
+      if (User.FIELD_NAME in info) {
+        this.username = info[User.FIELD_NAME];
+      }
       if (User.FIELD_TYPE in info) {
         this.type = info[User.FIELD_TYPE];
       }

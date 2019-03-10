@@ -1,5 +1,6 @@
 import {BaseModel} from "./base-model";
 import DataSnapshot = firebase.database.DataSnapshot;
+import {User} from "./user";
 
 export class Review extends BaseModel {
   //
@@ -16,6 +17,8 @@ export class Review extends BaseModel {
   userId = '';
   rate = 0;
   desc = '';
+
+  user: User;
 
   constructor(snapshot?: DataSnapshot) {
     super(snapshot);

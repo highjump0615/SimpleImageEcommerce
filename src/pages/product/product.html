@@ -91,7 +91,7 @@
           <!-- user photo -->
           <img
             class="round img-user"
-            src="../../assets/imgs/default_user.png" />
+            [src]="r.user.photoUrl ? r.user.photoUrl : '../../assets/imgs/default_user.png'" />
 
           <div
             class="flex-column width-100 "
@@ -102,16 +102,16 @@
                 <!-- username -->
                 <span
                   class="sp-username"
-                >Ellen McLaughlin</span>
+                >{{r.user.username}}</span>
                 <!-- time -->
                 <span
                   class="sp-time"
-                >7 hours ago</span>
+                >{{r.createdAtStr()}}</span>
               </div>
 
               <!--star rating -->
               <star-rate
-                [rating]="3"
+                [rating]="r.rate"
                 [mode]="1"
                 starSize="16">
               </star-rate>
@@ -120,7 +120,7 @@
             <!-- review -->
             <span
               class="sp-review"
-            >Suspendisse imperdiet mi eget dolor sodales porttitor non vel elit. </span>
+            >{{r.desc}}</span>
 
           </div>
 
