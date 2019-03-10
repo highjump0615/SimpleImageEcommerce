@@ -13,6 +13,7 @@ import { ApiProvider } from '../providers/api/api';
 import {FileTransfer} from "@ionic-native/file-transfer";
 import {File} from "@ionic-native/file";
 
+
 const COMPONENTS = [
   MyApp,
 ];

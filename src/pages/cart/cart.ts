@@ -141,8 +141,12 @@ export class CartPage {
 
   onButPay() {
     // go to payment page
+    this.navCtrl.push('StripePage', {
+      amount: this.getTotal(),
+      products: this.getData()
+    });
 
     // make orders
-    this.api.purchaseFromCart();
+    // this.api.purchaseFromCart();
   }
 }
