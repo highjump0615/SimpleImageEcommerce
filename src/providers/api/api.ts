@@ -213,4 +213,25 @@ export class ApiProvider {
         return Promise.resolve(ids);
       });
   }
+
+  addReview(review: Review, product: Product) {
+    // product error
+    if (!product) {
+      return Promise.reject(new Error('Product is not available'));
+    }
+
+    review.userId = this.auth.user.id;
+
+    return review.saveToDatabase(null, product.id)
+      .then(() => {
+        // update product rate
+        product.rating = (product.rating * product.reviewCount + review.rate) / (product.reviewCount + 1);
+        product.reviewCount++;
+
+        product.saveToDatabaseWithField(Product.FIELD_REVIEW_COUNT, product.reviewCount);
+        product.saveToDatabaseWithField(Product.FIELD_RATING, product.rating);
+
+        return Promise.resolve();
+      });
+  }
 }

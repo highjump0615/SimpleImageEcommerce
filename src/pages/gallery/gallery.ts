@@ -46,11 +46,6 @@ export class GalleryPage extends BaseProductPage {
     });
   }
 
-  onButAddCart(index, event) {
-    this.addToCart(this.products[index]);
-
-    event.stopPropagation();
-  }
 
   fetchProducts(showLoading: boolean) {
     this.showLoading = showLoading;

@@ -87,12 +87,10 @@ export class ProductPage extends BaseProductPage {
     console.log('ionViewDidLoad ProductPage');
   }
 
-  onButAddCart() {
-    // this.addToCart();
-  }
-
   onWriteReview() {
     // go to write review page
-    this.navCtrl.push('WriteReviewPage');
+    this.navCtrl.push('WriteReviewPage', {
+      data: this.product
+    });
   }
 }

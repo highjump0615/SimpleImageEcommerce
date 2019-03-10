@@ -1,5 +1,5 @@
 import {ViewChild} from "@angular/core";
-import {LoadingController} from "ionic-angular";
+import {LoadingController, ToastController} from "ionic-angular";
 import {User} from "../models/user";
 
 export class BasePage {
@@ -9,7 +9,8 @@ export class BasePage {
   mainHeight = 0;
 
   constructor(
-    public loadingCtrl?: LoadingController
+    public loadingCtrl?: LoadingController,
+    public toastCtrl?: ToastController
   ) {
   }
 
@@ -35,5 +36,13 @@ export class BasePage {
         this.loadingView.dismiss();
       }
     }
+  }
+
+  showToast(msg) {
+    const toast = this.toastCtrl.create({
+      message: msg,
+      duration: 2000
+    });
+    toast.present();
   }
 }

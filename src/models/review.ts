@@ -32,4 +32,14 @@ export class Review extends BaseModel {
   tableName() {
     return Review.TABLE_NAME;
   }
+
+  toDictionary() {
+    const dict = super.toDictionary();
+
+    dict[Review.FIELD_USER_ID] = this.userId;
+    dict[Review.FIELD_RATE] = this.rate;
+    dict[Review.FIELD_DESC] = this.desc;
+
+    return dict;
+  }
 }

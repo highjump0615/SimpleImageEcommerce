@@ -85,7 +85,7 @@ export class BaseModel {
    */
   saveToDatabase(withID?: string, parentID?: string) {
     const db = this.getDatabaseRef(withID, parentID);
-    db.set(this.toDictionary());
+    return db.set(this.toDictionary());
   }
 
   saveToDatabaseWithField(field: string,

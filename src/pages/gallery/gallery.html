@@ -58,7 +58,7 @@
           <button
             *ngIf="!isPurchased(p)"
             ion-button icon-start auto
-            (click)="onButAddCart(i, $event)">
+            (click)="addToCart(p, $event)">
             <ion-icon name="cart"></ion-icon>
             Add to Cart
           </button>

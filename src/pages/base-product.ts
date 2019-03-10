@@ -4,11 +4,12 @@ import {Product} from "../models/product";
 import {ApiProvider} from "../providers/api/api";
 import {FileTransfer, FileTransferObject} from "@ionic-native/file-transfer";
 import {File} from "@ionic-native/file";
+import {BasePage} from "./base";
 
 declare let cordova: any;
 
 
-export class BaseProductPage {
+export class BaseProductPage extends BasePage {
   constructor(
     public auth: AuthProvider,
     public api: ApiProvider,
@@ -18,6 +19,7 @@ export class BaseProductPage {
     public alertCtrl?: AlertController,
     public platform?: Platform
   ) {
+    super(null, toastCtrl);
   }
 
   /**
@@ -32,21 +34,15 @@ export class BaseProductPage {
     return !!this.auth.user.purchasedIds.find(p => p == product.id);
   }
 
-  addToCart(product: Product) {
+  addToCart(product: Product, event) {
+    event.stopPropagation();
+
     // add product id to cart table
     this.api.addCart(product);
 
     this.auth.user.addProductToCart(product);
 
     this.showToast('Added to Cart successfully');
-  }
-
-  showToast(msg) {
-    const toast = this.toastCtrl.create({
-      message: msg,
-      duration: 2000
-    });
-    toast.present();
   }
 
   doDownload(product: Product, event) {
