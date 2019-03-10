@@ -37,12 +37,21 @@ page-product {
   }
 
   ion-footer {
-    display: flex;
-    justify-content: center;
-    padding: 16px;
+    ion-toolbar {
+      .toolbar-background {
+        background: transparent;
+      }
 
-    button {
-      padding: 10px 40px !important;
+      .toolbar-content {
+        display: flex;
+        justify-content: center;
+      }
+
+      padding: 16px !important;
+
+      button {
+        padding: 10px 40px !important;
+      }
     }
   }
 }
