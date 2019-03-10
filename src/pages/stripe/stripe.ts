@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
+import {AlertController, IonicPage, LoadingController, NavController, NavParams, ToastController} from 'ionic-angular';
 import {emailMask} from "text-mask-addons/dist/textMaskAddons";
+import {BasePage} from "../base";
+import {ApiProvider} from "../../providers/api/api";
 
 /**
  * Generated class for the StripePage page.
@@ -14,7 +16,7 @@ import {emailMask} from "text-mask-addons/dist/textMaskAddons";
   selector: 'page-stripe',
   templateUrl: 'stripe.html',
 })
-export class StripePage {
+export class StripePage extends BasePage {
 
   price: number;
   masks: any;
@@ -30,8 +32,13 @@ export class StripePage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public alertCtrl: AlertController
+    private api: ApiProvider,
+    public alertCtrl: AlertController,
+    public loadingCtrl: LoadingController,
+    public toastCtrl: ToastController
   ) {
+    super(loadingCtrl, toastCtrl);
+
     this.price = navParams.get('amount');
 
     this.masks = {
@@ -93,8 +100,57 @@ export class StripePage {
     }
   }
 
+  doPurchaseProducts() {
+    this.showLoadingView(false);
+  }
+
+  createCharge(token) {
+    this.api.stripeCreateCharge(token, this.price)
+      .then(() => {
+        this.showToast('Payment is successful');
+        this.doPurchaseProducts();
+      })
+      .catch((err) => {
+        this.showLoadingView(false);
+
+        // show alert
+        let alert = this.alertCtrl.create({
+          title: 'Payment Failed',
+          subTitle: err.message,
+          buttons: ['OK']
+        });
+        alert.present();
+      });
+  }
+
   doPayment() {
-    this.fixValidation();
+
+    this.showLoadingView(true);
+
+    let card = {
+      number: '4242424242424242',
+      expMonth: 12,
+      expYear: 2020,
+      cvc: '123'
+    };
+
+    this.api.stripeCreateToken(card)
+      .then((token) => {
+        this.createCharge(token);
+      })
+      .catch((err) => {
+        this.showLoadingView(false);
+
+        // show alert
+        let alert = this.alertCtrl.create({
+          title: 'Payment Failed',
+          subTitle: err.message,
+          buttons: ['OK']
+        });
+        alert.present();
+      });
+
+/*    this.fixValidation();
 
     if ((this.cardHolderName == null) ||
       (this.cardNumber == null) ||
@@ -112,10 +168,29 @@ export class StripePage {
       return;
     }
 
-    var cardHolderName = this.cardHolderName;
-    var cardNumber = this.cardNumber.split(' ').join('').substring(0, 16);
-    var expiryMonth = parseInt(this.cardExpiry.substring(0, 2));
-    var expiryYear = parseInt(this.cardExpiry.substring(3, 5)) + 2000;
-    var cardCVC = this.cardCVC.substring(0, 3);
+    const cardHolderName = this.cardHolderName;
+    const cardNumber = this.cardNumber.split(' ').join('').substring(0, 16);
+    const expiryMonth = parseInt(this.cardExpiry.substring(0, 2));
+    const expiryYear = parseInt(this.cardExpiry.substring(3, 5)) + 2000;
+    const cardCVC = this.cardCVC.substring(0, 3);
+
+    const stripeForm = document.getElementById('stripeForm');
+
+    if ((stripeForm.getElementsByClassName('ng-invalid').length == 0) &&
+      (cardHolderName.trim().length > 0)) {
+
+      this.showLoadingView(true);
+
+      let card = {
+        number: cardNumber.toString(),
+        expMonth: expiryMonth,
+        expYear: expiryYear,
+        cvc: cardCVC,
+        name: cardHolderName
+      };
+
+      this.api.stripeCreateToken(card);
+    }
+*/
   }
 }

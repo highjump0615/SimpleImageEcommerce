@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Injectable, Provider} from '@angular/core';
 import {AuthProvider} from "../auth/auth";
 import {FirebaseManager} from "../../helpers/firebase-manager";
@@ -6,6 +6,7 @@ import {Product} from "../../models/product";
 import {User} from "../../models/user";
 import {Review} from "../../models/review";
 import {Order} from "../../models/order";
+import {config} from "../../helpers/config";
 
 /*
   Generated class for the ApiProvider provider.
@@ -16,11 +17,18 @@ import {Order} from "../../models/order";
 @Injectable()
 export class ApiProvider {
 
+  baseStripUrl = 'https://api.stripe.com/v1';
+
   constructor(
-    public auth: AuthProvider
+    public auth: AuthProvider,
+    private  httpClient : HttpClient
   ) {
     console.log('Hello ApiProvider Provider');
   }
+
+  //
+  // Firebase operations
+  //
 
   /**
    * get all products
@@ -173,8 +181,7 @@ export class ApiProvider {
       let o = new Order();
 
       o.userId = this.auth.user.id;
-      o.productId = p.id;
-      o.price = p.price;
+      o.amount = p.price;
 
       o.saveToDatabase();
 
@@ -233,5 +240,70 @@ export class ApiProvider {
 
         return Promise.resolve();
       });
+  }
+
+  //
+  // Stripe operations
+  //
+  stripeCreateToken(card) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': 'Bearer ' + config.stripeKey,
+        'Content-Type': 'application/x-www-form-urlencoded'
+      })
+    };
+
+    let body = new URLSearchParams();
+    body.set('card[number]', card.number);
+    body.set('card[exp_month]', card.expMonth);
+    body.set('card[exp_year]', card.expYear);
+    body.set('card[cvc]', card.cvc);
+
+    return new Promise((resolve, reject) => {
+      this.httpClient.post(
+        this.baseStripUrl + '/tokens',
+        body.toString(),
+        httpOptions
+      ).subscribe(data => {
+        console.log(data);
+
+        resolve(data['id']);
+      }, err => {
+        console.log(err);
+
+        reject(err.error.error);
+      });
+    });
+  }
+
+  stripeCreateCharge(token, amount) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': 'Bearer ' + config.stripeKey,
+        'Content-Type': 'application/x-www-form-urlencoded'
+      })
+    };
+
+    let body = new URLSearchParams();
+    body.set('source', token);
+    body.set('amount', (amount * 100).toString());
+    body.set('currency', 'usd');
+    body.set('description', 'Purchase Colors products');
+
+    return new Promise((resolve, reject) => {
+      this.httpClient.post(
+        this.baseStripUrl + '/charges',
+        body.toString(),
+        httpOptions
+      ).subscribe(data => {
+        console.log(data);
+
+        resolve();
+      }, err => {
+        console.log(err);
+
+        reject(err.error.error);
+      });
+    });
   }
 }

@@ -8,15 +8,13 @@ export class Order extends BaseModel {
   static TABLE_NAME = 'orders';
 
   static FIELD_USER_ID = 'userId';
-  static FIELD_PRODUCT_ID = 'productId';
-  static FIELD_PRICE = 'price';
+  static FIELD_AMOUNT = 'amount';
 
   //
   // properties
   //
   userId = '';
-  productId = '';
-  price = 0;
+  amount = 0;
 
   constructor(snapshot?: DataSnapshot) {
     super(snapshot);
@@ -25,8 +23,7 @@ export class Order extends BaseModel {
       const info = snapshot.val();
 
       this.userId = info[Order.FIELD_USER_ID];
-      this.productId = info[Order.FIELD_PRODUCT_ID];
-      this.price = info[Order.FIELD_PRICE];
+      this.amount = info[Order.FIELD_AMOUNT];
     }
   }
 
@@ -38,8 +35,7 @@ export class Order extends BaseModel {
     const dict = super.toDictionary();
 
     dict[Order.FIELD_USER_ID] = this.userId;
-    dict[Order.FIELD_PRODUCT_ID] = this.productId;
-    dict[Order.FIELD_PRICE] = this.price;
+    dict[Order.FIELD_AMOUNT] = this.amount;
 
     return dict;
   }
