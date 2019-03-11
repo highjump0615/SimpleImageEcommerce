@@ -3,13 +3,9 @@ import {AlertController, IonicPage, LoadingController, NavController, NavParams,
 import {BasePage} from "../base";
 import {Utils} from "../../helpers/utils";
 import {AuthProvider} from "../../providers/auth/auth";
-import {Storage} from "@ionic/storage";
 import {FirebaseManager} from "../../helpers/firebase-manager";
 import {User} from "../../models/user";
-import {MyApp} from "../../app/app.component";
 import {ApiProvider} from "../../providers/api/api";
-import {GooglePlus} from "@ionic-native/google-plus";
-import {config} from "../../helpers/config";
 
 /**
  * Generated class for the LoginPage page.

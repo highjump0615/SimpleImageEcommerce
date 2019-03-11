@@ -112,7 +112,7 @@ export class StripePage extends BasePage {
   }
 
   doPurchaseProducts() {
-    // this.api.makeOrderWithCart(this.price);
+    this.api.makeOrderWithCart(this.price);
 
     this.showLoadingView(false);
 

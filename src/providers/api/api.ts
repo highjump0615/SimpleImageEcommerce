@@ -103,6 +103,15 @@ export class ApiProvider {
       });
   }
 
+  updateUserInit(inited) {
+    // update init state of user
+    this.auth.user.inited = inited;
+    this.auth.updateCurrentUser();
+
+    // update db
+    this.auth.user.saveToDatabaseWithField(User.FIELD_INITED, inited);
+  }
+
   /**
    * fetch product with id
    * @param id
@@ -315,4 +324,6 @@ export class ApiProvider {
       });
     });
   }
+
+
 }
