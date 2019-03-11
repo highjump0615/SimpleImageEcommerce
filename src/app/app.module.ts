@@ -13,6 +13,7 @@ import { ApiProvider } from '../providers/api/api';
 import {FileTransfer} from "@ionic-native/file-transfer";
 import {File} from "@ionic-native/file";
 import {HttpClientModule} from "@angular/common/http";
+import {GooglePlus} from "@ionic-native/google-plus";
 
 
 const COMPONENTS = [
@@ -41,7 +42,8 @@ const COMPONENTS = [
     AuthProvider,
     ApiProvider,
     File,
-    FileTransfer
+    FileTransfer,
+    GooglePlus
   ]
 })
 export class AppModule {}

@@ -8,6 +8,8 @@ import {FirebaseManager} from "../../helpers/firebase-manager";
 import {User} from "../../models/user";
 import {MyApp} from "../../app/app.component";
 import {ApiProvider} from "../../providers/api/api";
+import {GooglePlus} from "@ionic-native/google-plus";
+import {config} from "../../helpers/config";
 
 /**
  * Generated class for the LoginPage page.
@@ -50,11 +52,72 @@ export class LoginPage extends BasePage {
   }
 
   onButGoogle(event) {
-    
+    this.signinMethod = this.SIGNIN_GOOGLE;
+    const that = this;
+
+    this.showLoadingView();
+
+    this.auth.googleSignin()
+      .then((data) => {
+        // fetch user
+        this.fetchUserInfo(
+          data['userInfo'],
+          data['givenName'],
+          data['familyName'],
+          data['imageUrl']
+        ).then((user) => {
+          this.setUser(user);
+        }).catch((err) => {
+          this.onError(err);
+        });
+      })
+      .catch((err) => {
+        this.onError(err);
+      });
   }
 
   onButFb(event) {
     
+  }
+
+  fetchUserInfo(
+    userInfo: firebase.User,
+    firstName: string,
+    lastName: string,
+    photoURL: string
+  ): Promise<User> {
+    return new Promise((resolve, reject) => {
+      const userId = FirebaseManager.auth().currentUser.uid;
+      if (!userId) {
+        reject(new Error('Social signin failed'));
+      }
+
+      this.api.getUserWithId(userId)
+        .then((user) => {
+          resolve(user);
+        })
+        .catch((err) => {
+          if (err.name == 'notfound') {
+            if (userInfo) {
+              let newUser = new User(userId);
+
+              newUser.email = userInfo.email;
+              newUser.username = firstName + ' ' + lastName;
+              newUser.photoUrl = photoURL;
+              newUser.purchasedIds = [];
+
+              // save to db
+              newUser.saveToDatabase();
+
+              resolve(newUser);
+              return;
+            }
+          }
+
+          reject(err);
+        });
+    });
+
   }
 
   onButSignup(event) {
@@ -115,13 +178,7 @@ export class LoginPage extends BasePage {
             this.onError(new Error('Admin user cannot be used in the app'));
           }
 
-          this.auth.user = u;
-          this.auth.updateCurrentUser();
-          this.api.fetchPurchased();
-
-          // go to main page
-          this.navCtrl.setRoot(LoginPage.getMainPage(this.auth.user));
-          this.showLoadingView(false);
+          this.setUser(u);
         })
         .catch((err) => {
           this.onError(err);
@@ -134,7 +191,19 @@ export class LoginPage extends BasePage {
     });
   }
 
+  setUser(u) {
+    this.auth.user = u;
+    this.auth.updateCurrentUser();
+    this.api.fetchPurchased();
+
+    // go to main page
+    this.navCtrl.setRoot(LoginPage.getMainPage(this.auth.user));
+    this.showLoadingView(false);
+  }
+
   onError(err) {
+    console.log(JSON.stringify(err));
+
     this.showLoadingView(false);
 
     // show error alert

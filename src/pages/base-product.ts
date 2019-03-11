@@ -27,6 +27,10 @@ export class BaseProductPage extends BasePage {
    * @param product
    */
   isPurchased(product: Product) {
+    if (!this.auth.user) {
+      return false;
+    }
+
     if (!this.auth.user.purchasedIds) {
       return false;
     }

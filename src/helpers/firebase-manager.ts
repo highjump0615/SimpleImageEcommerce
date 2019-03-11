@@ -54,6 +54,10 @@ export class FirebaseManager {
     FirebaseManager.auth().signOut();
   }
 
+  static getGoogleAuthCredential(token) {
+    return firebase.auth.GoogleAuthProvider.credential(token);
+  }
+
   static uploadImageTo(path, imgData, completion: (string?, error?) => void) {
     let storageRef = firebase.storage().ref();
     let imageRef = storageRef.child(path);

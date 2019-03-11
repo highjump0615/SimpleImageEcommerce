@@ -4,6 +4,8 @@ import {Storage} from "@ionic/storage";
 import {MyApp} from "../../app/app.component";
 import {User} from "../../models/user";
 import {User as FUser} from "firebase";
+import {GooglePlus} from "@ionic-native/google-plus";
+import {config} from "../../helpers/config";
 
 
 /*
@@ -18,7 +20,8 @@ export class AuthProvider {
   user: User;
 
   constructor(
-    private storage: Storage
+    private storage: Storage,
+    private googlePlus: GooglePlus
   ) {
     console.log('Hello AuthProvider Provider');
   }
@@ -54,6 +57,45 @@ export class AuthProvider {
       return Promise.resolve(res.user);
     });
   }
+
+  googleSignin() {
+    let that = this;
+
+    return new Promise((resolve, reject) => {
+      this.googlePlus.login({
+        'webClientId': config.webClientId,
+        'offline': true
+      }).then((res) => {
+        console.log(JSON.stringify(res));
+
+        const googleCredential = FirebaseManager.getGoogleAuthCredential(res['idToken']);
+
+        that.continueSocialSignIn(googleCredential)
+          .then((user) => {
+            resolve({
+              userInfo: user,
+              givenName: res['givenName'],
+              familyName: res['familyName'],
+              imageUrl: res['imageUrl']
+            })
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      }).catch((err) => {
+        reject(err);
+      });
+    });
+
+  }
+
+  continueSocialSignIn(credential): Promise<FUser> {
+    return FirebaseManager.auth().signInAndRetrieveDataWithCredential(credential)
+      .then((res) => {
+        return Promise.resolve(res.user);
+      });
+  }
+
 
   signOut() {
     // clear current user

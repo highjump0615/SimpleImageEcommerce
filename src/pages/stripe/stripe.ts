@@ -67,7 +67,6 @@ export class StripePage extends BasePage {
   }
 
   fixValidation() {
-    console.log('asdfasdf');
     var ctx = this;
 
     if (ctx.cardHolderName != null) {

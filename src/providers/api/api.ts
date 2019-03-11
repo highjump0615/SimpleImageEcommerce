@@ -92,7 +92,10 @@ export class ApiProvider {
     return userRef.once('value')
       .then((snapshot) => {
         if (!snapshot.exists()) {
-          return Promise.reject('User not found');
+          const err = new Error('User not found');
+          err.name = 'notfound';
+
+          return Promise.reject(err);
         }
 
         const user = new User(null, snapshot);

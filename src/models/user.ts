@@ -51,6 +51,9 @@ export class User extends BaseModel implements Deserializable {
       if (User.FIELD_INITED in info) {
         this.inited = info[User.FIELD_INITED];
       }
+      if (User.FIELD_PHOTO in info) {
+        this.photoUrl = info[User.FIELD_PHOTO];
+      }
     }
 
     if (withId) {
@@ -71,6 +74,7 @@ export class User extends BaseModel implements Deserializable {
     dict[User.FIELD_EMAIL] = this.email;
     dict[User.FIELD_TYPE] = this.type;
     dict[User.FIELD_INITED] = this.inited;
+    dict[User.FIELD_PHOTO] = this.photoUrl;
 
     return dict;
   }
