@@ -50,6 +50,13 @@ export class ProductPage extends BaseProductPage {
       .then((revs) => {
         let rvs = [];
 
+        if (revs.length == 0) {
+          this.showLoading = false;
+          this.reviews = rvs;
+
+          return;
+        }
+
         // fetch users
         for (let r of revs) {
           this.api.getUserWithId(r.userId)
