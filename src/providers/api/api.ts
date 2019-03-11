@@ -171,19 +171,25 @@ export class ApiProvider {
       });
   }
 
-  purchaseFromCart() {
+  /**
+   * add orders & purchased products
+   * @param amount
+   */
+  makeOrderWithCart(amount) {
+    // add to order
+    let o = new Order();
+
+    o.userId = this.auth.user.id;
+    o.amount = amount;
+
+    o.saveToDatabase();
+
     let dbRef = FirebaseManager.ref()
       .child(Product.TABLE_NAME_PURCHASE)
       .child(this.auth.user.id);
 
     for (let p of this.auth.user.carts) {
-      // add to order
-      let o = new Order();
-
-      o.userId = this.auth.user.id;
-      o.amount = p.price;
-
-      o.saveToDatabase();
+      this.auth.user.addProductToPurchased(p);
 
       // add to purchased
       dbRef.child(p.id).set(o.id);

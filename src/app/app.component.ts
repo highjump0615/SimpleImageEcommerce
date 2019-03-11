@@ -8,6 +8,7 @@ import {Storage} from "@ionic/storage";
 import {User} from "../models/user";
 import {LoginPage} from "../pages/login/login";
 import {ApiProvider} from "../providers/api/api";
+import {Utils} from "../helpers/utils";
 
 @Component({
   templateUrl: 'app.html'
@@ -16,8 +17,6 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   // rootPage: any = 'LoginPage';
-  currrentPage = '';
-
   static KEY_USER = 'current_user';
 
   pages: Array<{title: string, component: any, icon: string}>;
@@ -77,12 +76,14 @@ export class MyApp {
     this.statusBar.styleDefault();
     this.splashScreen.hide();
 
-    this.currrentPage = LoginPage.getMainPage(this.auth.user);
-    this.nav.setRoot(this.currrentPage);
+    let currentPage = LoginPage.getMainPage(this.auth.user);
+    this.nav.setRoot(currentPage);
+
+    Utils.getInstance().currentPage = currentPage;
   }
 
   openPage(page) {
-    if (this.currrentPage == page.component) {
+    if (Utils.getInstance().currentPage == page.component) {
       return;
     }
 
@@ -90,8 +91,7 @@ export class MyApp {
     // we wouldn't want the back button to show in this scenario
     if (page.component) {
       this.nav.setRoot(page.component);
-
-      this.currrentPage = page.component;
+      Utils.getInstance().currentPage = page.component;
     }
   }
 

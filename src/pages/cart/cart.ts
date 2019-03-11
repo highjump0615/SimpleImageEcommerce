@@ -147,6 +147,6 @@ export class CartPage {
     });
 
     // make orders
-    // this.api.purchaseFromCart();
+    // this.api.makeOrderWithCart();
   }
 }

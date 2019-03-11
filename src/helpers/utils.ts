@@ -3,6 +3,8 @@ import moment from 'moment';
 export class Utils {
   private static instance: Utils;
 
+  currentPage = '';
+
   static getInstance() {
     if (!this.instance) {
       this.instance = new Utils();

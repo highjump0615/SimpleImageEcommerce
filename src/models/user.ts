@@ -88,4 +88,18 @@ export class User extends BaseModel implements Deserializable {
 
     this.carts.push(product);
   }
+
+  addProductToPurchased(product: Product) {
+    if (!this.purchasedIds) {
+      return;
+    }
+    this.purchasedIds.push(product.id);
+
+    // user's purchased are not initialized, return
+    if (!this.purchased) {
+      return;
+    }
+
+    this.purchased.push(product);
+  }
 }
