@@ -77,7 +77,28 @@ export class LoginPage extends BasePage {
   }
 
   onButFb(event) {
-    
+    this.signinMethod = this.SIGNIN_FACEBOOK;
+    const that = this;
+
+    this.showLoadingView();
+
+    this.auth.facebookSignin()
+      .then((data) => {
+        // fetch user
+        this.fetchUserInfo(
+          data['userInfo'],
+          data['givenName'],
+          data['familyName'],
+          data['imageUrl']
+        ).then((user) => {
+          this.setUser(user);
+        }).catch((err) => {
+          this.onError(err);
+        });
+      })
+      .catch((err) => {
+        this.onError(err);
+      });
   }
 
   fetchUserInfo(

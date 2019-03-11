@@ -6,6 +6,7 @@ import {User} from "../../models/user";
 import {User as FUser} from "firebase";
 import {GooglePlus} from "@ionic-native/google-plus";
 import {config} from "../../helpers/config";
+import {Facebook} from "@ionic-native/facebook";
 
 
 /*
@@ -21,7 +22,8 @@ export class AuthProvider {
 
   constructor(
     private storage: Storage,
-    private googlePlus: GooglePlus
+    private googlePlus: GooglePlus,
+    private facebook: Facebook
   ) {
     console.log('Hello AuthProvider Provider');
   }
@@ -87,6 +89,45 @@ export class AuthProvider {
       });
     });
 
+  }
+
+  facebookSignin() {
+    let that = this;
+
+    return new Promise((resolve, reject) => {
+      this.facebook.login(['email', 'public_profile'])
+        .then((res) => {
+          console.log(JSON.stringify(res));
+
+          const facebookCredential = FirebaseManager.getFbAuthCredential(res.authResponse.accessToken);
+
+          // get user profile info
+          this.facebook.api('me?fields=first_name,last_name,picture.width(360).height(360).as(picture_large)', [])
+            .then((profile) => {
+              console.log(JSON.stringify(profile));
+
+              that.continueSocialSignIn(facebookCredential)
+                .then((user) => {
+                  resolve({
+                    userInfo: user,
+                    givenName: profile['first_name'],
+                    familyName: profile['last_name'],
+                    imageUrl: profile['picture_large']['data']['url']
+                  })
+                })
+                .catch((err) => {
+                  reject(err);
+                });
+            })
+            .catch((err) => {
+              reject(err);
+            });
+
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
   }
 
   continueSocialSignIn(credential): Promise<FUser> {

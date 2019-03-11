@@ -92,6 +92,12 @@
         <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.17189732658-rmlu329bijf7ir3ldul7r23umtm08k3p" />
         <variable name="PLAY_SERVICES_VERSION" value="11.8.0" />
     </plugin>
+    <plugin name="cordova-plugin-facebook4" spec="4.2.1">
+        <variable name="APP_ID" value="516645138860909" />
+        <variable name="APP_NAME" value="Colors" />
+        <variable name="FACEBOOK_HYBRID_APP_EVENTS" value="false" />
+        <variable name="FACEBOOK_ANDROID_SDK_VERSION" value="4.40.0" />
+    </plugin>
     <engine name="android" spec="7.1.4" />
     <engine name="ios" spec="4.5.5" />
 </widget>

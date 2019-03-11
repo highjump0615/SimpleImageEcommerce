@@ -58,6 +58,12 @@ export class FirebaseManager {
     return firebase.auth.GoogleAuthProvider.credential(token);
   }
 
+  static getFbAuthCredential(token) {
+    return firebase.auth
+      .FacebookAuthProvider
+      .credential(token);
+  }
+
   static uploadImageTo(path, imgData, completion: (string?, error?) => void) {
     let storageRef = firebase.storage().ref();
     let imageRef = storageRef.child(path);
