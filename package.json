@@ -27,7 +27,7 @@
     "@ionic-native/status-bar": "~4.18.0",
     "@ionic-native/stripe": "^4.20.0",
     "@ionic/storage": "2.2.0",
-    "angular2-text-mask": "^8.0.5",
+    "angular2-text-mask": "8.0.2",
     "cordova-android": "7.1.4",
     "cordova-ios": "4.5.5",
     "cordova-plugin-device": "^2.0.2",
