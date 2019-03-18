@@ -5,7 +5,7 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-navbar class="bg-grad">
+  <ion-navbar class="bg-grad-toolbar">
     <button
       ion-button menuToggle
       color="light">
@@ -17,21 +17,48 @@
 
 <ion-content>
 
-  <ion-list class="list-custom">
+  <!-- pull to refresh -->
+  <ion-refresher
+    (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingText="Pull to refresh"
+    ></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list
+    class="list-custom"
+    [virtualScroll]="products">
+    <!-- showLoading -->
+    <ion-spinner *ngIf="showLoading"></ion-spinner>
+    <div
+      class="dv-no-list-item flex-c-row"
+      *ngIf="!showLoading && products.length == 0">
+      <span>No products available yet</span>
+    </div>
+
     <ion-item
       detail-none
       no-padding
-      *ngFor="let item of [1,2,3,4,5]">
+      *virtualItem="let p; let i = index">
       <div class="flex-column dv-product">
         <!-- image -->
-        <div class="dv-image flex-c-row">
+        <div
+          class="dv-image flex-c-row"
+          #imageViewer
+          (click)="onImage(imageViewer, i)">
+          <ion-img
+            src="{{p.imageUrl}}"
+            [cache]="true"
+          ></ion-img>
+
           <!-- default image icon -->
           <ion-icon name="images"></ion-icon>
 
           <!-- add to cart -->
           <button
+            *ngIf="!isPurchased(p)"
             ion-button icon-start auto
-            (click)="onButAddCart()">
+            (click)="addToCart(p, $event)">
             <ion-icon name="cart"></ion-icon>
             Add to Cart
           </button>
@@ -41,24 +68,24 @@
           <!-- description -->
           <span
             class="sp-desc"
-          >Sed placerat lectus vel tempor feugiat. Cras justo nunc, convallis ac dolor vel, euismod venenatis.</span>
+          >{{p.desc}}</span>
 
           <div class="flex-c-row dv-rate">
             <!-- rating -->
             <star-rate
-              [rating]="3"
+              [rating]="p.rating"
               starSize="22">
             </star-rate>
 
             <!-- price -->
-            <span class="sp-price">$13</span>
+            <span class="sp-price">${{p.price}}</span>
           </div>
 
           <!-- comment -->
           <button
             ion-button
             color="dark"
-            (click)="onButComment()"
+            (click)="onButComment(i)"
             clear>
             <u>View Recent Comments</u>
           </button>

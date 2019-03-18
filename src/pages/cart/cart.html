@@ -5,7 +5,7 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-navbar class="bg-grad">
+  <ion-navbar class="bg-grad-toolbar">
     <button
       ion-button menuToggle
       color="light">
@@ -20,15 +20,26 @@
   <div class="flex-column">
     <!-- product list -->
     <ion-list class="list-custom">
+      <!-- showLoading -->
+      <ion-spinner *ngIf="showLoading"></ion-spinner>
+      <div
+        class="dv-no-list-item flex-c-row"
+        *ngIf="!showLoading && getData().length == 0">
+        <span>No products added yet</span>
+      </div>
+
       <ion-item
         detail-none
         no-padding
         no-lines
-        *ngFor="let item of [1,2]; let i = index">
+        *ngFor="let p of getData(); let i = index"
+        (click)="onItem(i)">
 
         <div class="dv-product flex-row">
           <!-- image -->
           <div class="dv-image flex-c-row">
+            <img src="{{p.imageUrl}}" />
+
             <!-- default image icon -->
             <ion-icon name="images"></ion-icon>
           </div>
@@ -38,19 +49,19 @@
             <!-- title -->
             <span
               class="sp-title"
-            >Cocobolo Image</span>
+            >{{p.title}}</span>
 
             <!-- price -->
             <span
               class="sp-price"
-            >$13.00</span>
+            >$ {{p.price}}</span>
           </div>
 
           <!-- close button -->
           <button
             ion-button clear icon-only
             color="lightdark"
-            (click)="onButRemove(i)">
+            (click)="onButRemove(i, $event)">
             <ion-icon name="close-circle"></ion-icon>
           </button>
         </div>
@@ -65,23 +76,27 @@
       <!-- subtotal -->
       <div class="flex-row space-between dv-line width-100">
         <span>SubTotal</span>
-        <span>$33.00</span>
+        <span>$ {{getSubTotal()}}</span>
       </div>
       <!-- tax -->
-      <div class="flex-row space-between dv-line width-100">
+      <div
+        class="flex-row space-between dv-line width-100"
+        hidden>
         <span>Tax</span>
-        <span>$3</span>
+        <span>$ {{tax}}</span>
       </div>
       <!-- totla -->
       <div class="flex-row space-between dv-line-bold width-100">
         <span>TOTAL</span>
-        <span>$36.00</span>
+        <span>$ {{getTotal()}}</span>
       </div>
 
       <!-- pay button -->
       <button
         ion-button
+        [disabled]="getTotal() <= 0"
         class="round-corner width-70 mt-60"
+        (click)="onButPay()"
       >Pay</button>
     </div>
   </div>

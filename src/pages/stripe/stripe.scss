@@ -1,0 +1,11 @@
+page-stripe {
+  button[type=submit] {
+    display: block;
+    margin: 15% auto 0 auto;
+    width: 70%;
+  }
+
+  ion-col {
+    padding: 0 !important;
+  }
+}

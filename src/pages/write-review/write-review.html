@@ -5,7 +5,7 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-navbar class="bg-grad">
+  <ion-navbar class="bg-grad-toolbar">
     <ion-title>Rate and Review</ion-title>
   </ion-navbar>
 </ion-header>
@@ -21,7 +21,8 @@
       starSize="35"
       mode="1"
       spacing="4"
-      [readOnly]="false">
+      [readOnly]="false"
+      #starRate>
     </star-rate>
 
     <!-- title -->
@@ -32,7 +33,8 @@
     <!-- text area -->
     <ion-card>
       <ion-textarea
-        placeholder="Write here...">
+        placeholder="Write here..."
+        [(ngModel)]="review">
       </ion-textarea>
     </ion-card>
 
@@ -40,6 +42,8 @@
     <button
       ion-button
       class="round-corner width-60 bt-post"
+      [disabled]="review.length <= 0"
+      (click)="onPost()"
     >Post</button>
 
   </div>
