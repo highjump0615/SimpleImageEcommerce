@@ -19,6 +19,10 @@ export class ApiProvider {
 
   baseStripUrl = 'https://api.stripe.com/v1';
 
+  // table & fields
+  static TABLE_SETTINGS = 'settings';
+  static FEIELD_ABOUT_APP = 'about';
+
   constructor(
     public auth: AuthProvider,
     private  httpClient : HttpClient
@@ -104,6 +108,10 @@ export class ApiProvider {
   }
 
   updateUserInit(inited) {
+    if (!this.auth.user) {
+      return;
+    }
+
     // update init state of user
     this.auth.user.inited = inited;
     this.auth.updateCurrentUser();
@@ -325,5 +333,17 @@ export class ApiProvider {
     });
   }
 
+  fetchAboutApp() {
+    // fetch products
+    const dbRef = FirebaseManager.ref();
+
+    let query: any = dbRef.child(ApiProvider.TABLE_SETTINGS)
+      .child(ApiProvider.FEIELD_ABOUT_APP);
+
+    return query.once('value')
+      .then((snapshot) => {
+        return Promise.resolve(snapshot.val());
+      });
+  }
 
 }
