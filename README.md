@@ -20,7 +20,7 @@ AngularJS v5.2.11
 ##### 2.1.2 UI layout when keyboard appears  
 In default, the whole view content shrinks when keyboard appears. To solve this problem:  
 
-- Set min-height style to prevent shrink  
+- Set ``min-height`` style to prevent shrink  
 ```html
 <div
     #container
