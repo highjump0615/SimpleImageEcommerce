@@ -16,6 +16,9 @@ import {ApiProvider} from "../../providers/api/api";
 })
 export class AboutPage {
 
+  showLoading = true;
+  aboutApp = '';
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -27,6 +30,19 @@ export class AboutPage {
     console.log('ionViewDidLoad AboutPage');
 
     this.api.updateUserInit(true);
+
+    // fetch about app
+    this.api.fetchAboutApp()
+      .then((data) => {
+        this.aboutApp = data;
+
+        this.showLoading = false;
+      })
+      .catch((err) => {
+        console.log(err);
+
+        this.showLoading = false;
+      });
   }
 
 }

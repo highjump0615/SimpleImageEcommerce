@@ -74,7 +74,7 @@ export class User extends BaseModel implements Deserializable {
     dict[User.FIELD_EMAIL] = this.email;
     dict[User.FIELD_TYPE] = this.type;
     dict[User.FIELD_INITED] = this.inited;
-    dict[User.FIELD_PHOTO] = this.photoUrl;
+    this.addDictItem(dict, User.FIELD_PHOTO, this.photoUrl);
 
     return dict;
   }

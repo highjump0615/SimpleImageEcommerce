@@ -24,7 +24,10 @@
   <!-- content -->
   <div padding>
     <h6>Description</h6>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed placerat lectus vel tempor feugiat. Cras justo nunc, convallis ac dolor vel, euismod venenatis lorem. Pellentesque ut erat nec diam egestas blandit convallis vitae massa. Ut a tristique nisl, in pretium leo. Nulla vel efficitur ligula, et mollis libero. Praesent non pellentesque diam.</p>
+
+    <!-- showLoading -->
+    <ion-spinner *ngIf="showLoading"></ion-spinner>
+    <p>{{aboutApp}}</p>
   </div>
 
 </ion-content>

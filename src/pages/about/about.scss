@@ -10,4 +10,15 @@ page-about {
     }
   }
 
+  ion-content {
+    ion-spinner {
+      margin: 40px auto;
+      display: block;
+    }
+
+    p {
+      white-space: pre-wrap;
+    }
+  }
+
 }
