@@ -39,8 +39,8 @@ ionViewDidEnter() {
 ##### 2.1.3 Virtual scroll for lazy loading list items  
 Using ``<ion-img>`` instead of ``<img>`` to get better user experience and performance  
 
-- Gallery page; ``gallery.html``
-- Download page; ``downloads.html``
+- Gallery page; *gallery.html*  
+- Download page; *downloads.html*
   
 #### 2.2 Function Implementation
 ##### 2.2.1 Auth module
@@ -98,6 +98,6 @@ Facebook Signin
 
 
 ## Need to Improve
-#### Image list not perfect in Gallery page  
+#### Image list is in Gallery page not perfect  
 - Images are not loading or showing in some cases  
 It seems that ``virtualScroll`` and ``<ion-img>`` have some problems...
