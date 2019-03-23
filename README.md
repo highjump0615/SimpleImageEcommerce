@@ -98,6 +98,6 @@ Facebook Signin
 
 
 ## Need to Improve
-#### Image list is in Gallery page not perfect  
+#### Image list in Gallery page is not perfect  
 - Images are not loading or showing in some cases  
 It seems that ``virtualScroll`` and ``<ion-img>`` have some problems...
